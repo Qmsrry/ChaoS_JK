@@ -9,7 +9,7 @@ const users = {
     id: "admin",
     role: "admin",
     name: "难凉热血",
-    avatar: "https://s1.ax1x.com/2020/04/28/J5hUaT.jpg",
+    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     description: "拥有系统内所有菜单和路由权限",
   },
   "editor-token": {

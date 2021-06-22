@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive:120});
 
 var db = mongoose.connection;
@@ -74,5 +75,3 @@ const User = mongoose.model('User', userSchema);
 const Device = mongoose.model('Device', deviceSchema);
 
 const Pkg = mongoose.model('Pkg', PkgSchema);
-
-

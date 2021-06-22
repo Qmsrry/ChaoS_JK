@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive:120});
 
 var db = mongoose.connection;
@@ -75,4 +76,50 @@ const Device = mongoose.model('Device', deviceSchema);
 
 const Pkg = mongoose.model('Pkg', PkgSchema);
 
+const TEST_Auth = new Auth({
+  account: "test",
+  password: "test",
+  email: "csjk@zju.edu.cn"
+});
+
+const TEST_User = new User({
+  name: "test",
+  email: "csjk@zju.edu.cn",
+  role: "admin"
+})
+
+const TEST_Pos = { type: 'Point', coordinates: [0, 0] };
+
+const TEST_Device = new Device({
+  owner: TEST_User._id,
+  name: "robot",
+  online: true,
+})
+
+const TEST_Pkg = new Pkg({
+  sender: TEST_Device._id,
+  payload: {},
+})
+
+TEST_Pkg.markModified('payload')
+TEST_Device.location.push(TEST_Pos);
+TEST_Device.packages.push(TEST_Pkg._id);
+TEST_User.devices.push(TEST_Device._id);
+
+TEST_Auth.save(function (err, res) {
+  if (err) return console.error(err);
+  console.log(res);
+});
+TEST_Device.save(function (err, res) {
+  if (err) return console.error(err);
+  console.log(res);
+});
+TEST_User.save(function (err, res) {
+  if (err) return console.error(err);
+  console.log(res);
+});
+TEST_Pkg.save(function (err, res) {
+  if (err) return console.error(err);
+  console.log(res);
+});
 

@@ -2,13 +2,14 @@ const tokens = {
   admin: "admin-token",
   guest: "guest-token",
   editor: "editor-token",
+  dickman: "dickman-token"
 };
 
 const users = {
   "admin-token": {
     id: "admin",
     role: "admin",
-    name: "难凉热血",
+    name: "SJoJoK",
     avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     description: "拥有系统内所有菜单和路由权限",
   },
@@ -25,6 +26,13 @@ const users = {
     name: "游客",
     avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     description:"仅能看到Dashboard、开发文档、权限测试和关于作者四个页面",
+  },
+  "dickman-token": {
+    id: "admin",
+    role: "admin",
+    name: "dickman",
+    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+    description: "拥有系统内所有菜单和路由权限",
   },
 };
 

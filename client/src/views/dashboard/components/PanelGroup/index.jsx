@@ -5,27 +5,27 @@ import "./index.less";
 
 const chartList = [
   {
-    type: "New Visits",
-    icon: "user",
+    type: "设备数",
+    icon: "tablet",
     num: 102400,
     color: "#40c9c6",
   },
   {
-    type: "Messages",
-    icon: "message",
+    type: "数据包",
+    icon: "gift",
     num: 81212,
     color: "#36a3f7",
   },
   {
-    type: "Purchases",
-    icon: "pay-circle",
+    type: "数据量",
+    icon: "database",
     num: 9280,
     color: "#f4516c",
   },
   {
-    type: "Shoppings",
-    icon: "shopping-cart",
-    num: 13600,
+    type: "暂未开放",
+    icon: "question",
+    num: 0,
     color: "#f6ab40",
   },
 ];
@@ -47,7 +47,6 @@ const PanelGroup = (props) => {
             <div className="card-panel">
               <div className="card-panel-icon-wrapper">
                 <Icon
-                  className={chart.type}
                   style={{ fontSize: 55, color: chart.color }}
                   type={chart.icon}
                 />

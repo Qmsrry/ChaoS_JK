@@ -84,28 +84,11 @@ class LineChart extends Component {
         },
       },
       legend: {
-        data: ["expected", "actual"],
+        data: ["近一周数据"],
       },
       series: [
         {
-          name: "expected",
-          itemStyle: {
-            normal: {
-              color: "#FF005A",
-              lineStyle: {
-                color: "#FF005A",
-                width: 2,
-              },
-            },
-          },
-          smooth: true,
-          type: "line",
-          data: expectedData,
-          animationDuration: 2800,
-          animationEasing: "cubicInOut",
-        },
-        {
-          name: "actual",
+          name: "近一周数据",
           smooth: true,
           type: "line",
           itemStyle: {

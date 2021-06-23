@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive:120});
 
 var db = mongoose.connection;
@@ -9,7 +10,7 @@ db.once('open', function() {
 
 //验证信息
 const authSchema = new mongoose.Schema({
-  account: {
+  username: {
     type: String,
     required: true
   },
@@ -75,4 +76,4 @@ const Device = mongoose.model('Device', deviceSchema);
 
 const Pkg = mongoose.model('Pkg', PkgSchema);
 
-
+module.exports = {Auth, User, Device, Pkg}

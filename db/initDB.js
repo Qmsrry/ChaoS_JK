@@ -10,7 +10,7 @@ db.once('open', function() {
 
 //验证信息
 const authSchema = new mongoose.Schema({
-  account: {
+  username: {
     type: String,
     required: true
   },
@@ -77,7 +77,7 @@ const Device = mongoose.model('Device', deviceSchema);
 const Pkg = mongoose.model('Pkg', PkgSchema);
 
 const TEST_Auth = new Auth({
-  account: "test",
+  username: "test",
   password: "test",
   email: "csjk@zju.edu.cn"
 });

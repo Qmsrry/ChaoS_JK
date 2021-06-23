@@ -24,25 +24,24 @@ class TableComponent extends Component {
     listQuery: {
       pageNumber: 1,
       pageSize: 10,
-      title: "",
-      star: "",
+      name: "",
       status:""
     },
     editModalVisible: false,
     editModalLoading: false,
     currentRowData: {
       id: 0,
-      author: "",
+      name: "",
+      data: 0,
       date: "",
-      readings: 0,
-      star: "★",
-      status: "published",
+      status: "online",
       title: ""
     }
   };
   fetchData = () => {
     this.setState({ loading: true });
     tableList(this.state.listQuery).then((response) => {
+      console.log(this.state.listQuery);
       this.setState({ loading: false });
       const list = response.data.data.items;
       const total = response.data.data.total;
@@ -58,12 +57,12 @@ class TableComponent extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-  filterTitleChange = (e) => {
+  filterNameChange = (e) => {
     let value = e.target.value
     this.setState((state) => ({
       listQuery: {
         ...state.listQuery,
-        title:value,
+        name:value,
       }
     }));
   };
@@ -72,14 +71,6 @@ class TableComponent extends Component {
       listQuery: {
         ...state.listQuery,
         status:value,
-      }
-    }));
-  };
-  filterStarChange  = (value) => {
-    this.setState((state) => ({
-      listQuery: {
-        ...state.listQuery,
-        star:value,
       }
     }));
   };
@@ -158,24 +149,15 @@ class TableComponent extends Component {
         <Collapse defaultActiveKey={["1"]}>
           <Panel header="筛选" key="1">
             <Form layout="inline">
-              <Form.Item label="标题:">
-                <Input onChange={this.filterTitleChange} />
+              <Form.Item label="设备名:">
+                <Input onChange={this.filterNameChange} />
               </Form.Item>
-              <Form.Item label="类型:">
+              <Form.Item label="状态:">
                 <Select
                   style={{ width: 120 }}
                   onChange={this.filterStatusChange}>
-                  <Select.Option value="published">published</Select.Option>
-                  <Select.Option value="draft">draft</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label="推荐指数:">
-                <Select
-                  style={{ width: 120 }}
-                  onChange={this.filterStarChange}>
-                  <Select.Option value={1}>★</Select.Option>
-                  <Select.Option value={2}>★★</Select.Option>
-                  <Select.Option value={3}>★★★</Select.Option>
+                  <Select.Option value="online">online</Select.Option>
+                  <Select.Option value="offline">offline</Select.Option>
                 </Select>
               </Form.Item>
               <Form.Item>
@@ -195,13 +177,11 @@ class TableComponent extends Component {
           pagination={false}
         >
           <Column title="序号" dataIndex="id" key="id" width={200} align="center" sorter={(a, b) => a.id - b.id}/>
-          <Column title="标题" dataIndex="title" key="title" width={200} align="center"/>
-          <Column title="作者" dataIndex="author" key="author" width={100} align="center"/>
-          <Column title="阅读量" dataIndex="readings" key="readings" width={195} align="center"/>
-          <Column title="推荐指数" dataIndex="star" key="star" width={195} align="center"/>
+          <Column title="设备名" dataIndex="name" key="name" width={200} align="center"/>
+          <Column title="上传量" dataIndex="data" key="data" width={195} align="center"/>
           <Column title="状态" dataIndex="status" key="status" width={195} align="center" render={(status) => {
             let color =
-              status === "published" ? "green" : status === "deleted" ? "red" : "";
+              status === "online" ? "green" : status === "offline" ? "red" : "";
             return (
               <Tag color={color} key={status}>
                 {status}

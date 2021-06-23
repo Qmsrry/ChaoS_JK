@@ -53,11 +53,6 @@ class EditForm extends Component {
               initialValue: readings,
             })(<Input disabled />)}
           </Form.Item>
-          <Form.Item label="推荐指数:">
-            {getFieldDecorator("star", {
-              initialValue: star.length,
-            })(<Rate count={3} />)}
-          </Form.Item>
           <Form.Item label="状态:">
             {getFieldDecorator("status", {
               initialValue: status,

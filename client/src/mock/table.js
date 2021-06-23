@@ -6,26 +6,25 @@ for (let i = 0; i < count; i++) {
   List.push(
     Mock.mock({
       id: i,
-      title: "@ctitle(5, 10)",
+      name: "@ctitle(5, 10)",
       author: "@cname",
-      readings: "@integer(300, 5000)",
-      "star|1-3": "★",
-      "status|1": ["published", "draft"],
+      data: "@integer(300, 5000)",
+      "status|1": ["online", "offline"],
       date: "@datetime",
     })
   );
 }
 export default {
   tableList: (config) => {
-    const { pageNumber, pageSize, title, status, star } = JSON.parse(
+    const { pageNumber, pageSize, name, status, star } = JSON.parse(
       config.body
     );
     let start = (pageNumber - 1) * pageSize;
     let end = pageNumber * pageSize;
     let mockList = List.filter((item) => {
-      if (star && item.star.length !== star) return false;
+      // if (star && item.star.length !== star) return false;
       if (status && item.status !== status) return false;
-      if (title && item.title.indexOf(title) < 0) return false;
+      if (name && item.name.indexOf(name) < 0) return false;
       return true;
     });
     let pageList = mockList.slice(start, end);

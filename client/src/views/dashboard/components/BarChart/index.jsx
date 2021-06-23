@@ -89,7 +89,7 @@ class BarChart extends Component {
       ],
       series: [
         {
-          name: "pageA",
+          name: "No.1",
           type: "bar",
           stack: "vistors",
           barWidth: "60%",
@@ -97,7 +97,7 @@ class BarChart extends Component {
           animationDuration,
         },
         {
-          name: "pageB",
+          name: "No.2",
           type: "bar",
           stack: "vistors",
           barWidth: "60%",
@@ -105,7 +105,7 @@ class BarChart extends Component {
           animationDuration,
         },
         {
-          name: "pageC",
+          name: "No.3",
           type: "bar",
           stack: "vistors",
           barWidth: "60%",

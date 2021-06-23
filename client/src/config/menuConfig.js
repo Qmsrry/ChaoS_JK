@@ -10,7 +10,13 @@ const menuList = [
     roles:["admin","editor","guest"]
   },
   {
-    title: "图表",
+    title: "设备管理",
+    path: "/table",
+    icon: "table",
+    roles:["admin","editor","guest"]
+  },
+  {
+    title: "地图显示",
     path: "/charts",
     icon: "area-chart",
     roles:["admin","editor"],
@@ -32,18 +38,6 @@ const menuList = [
       },
     ],
   },
-  {
-    title: "表格",
-    path: "/table",
-    icon: "table",
-    roles:["admin","editor"]
-  },
-  // {
-  //   title: "用户管理",
-  //   path: "/user",
-  //   icon: "usergroup-add",
-  //   roles:["admin"]
-  // },
   {
     title: "关于作者",
     path: "/about",

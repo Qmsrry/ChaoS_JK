@@ -10,23 +10,25 @@ router.get('/', function (req, res, next) {
     const online = req.query.status === 'online' ? true : false;
     const start = req.query.start;
     const end = req.query.end;
-    Device.find({},
+    let filter = {};
+    if (name) {
+        filter.name = name;
+    }
+    if (online) {
+        filter.online = online;
+    }
+    Device.find(filter,
         function (err, docs) {
             if (err) return console.error(err);
-            let mockList = List.filter((item) => {
-                if (status && item.status !== status) return false;
-                if (name && item.name.indexOf(name) < 0) return false;
-                return true;
-            });
-            let pageList = mockList.slice(start, end);
-            return {
+            const pageList = docs.slice(start, end);
+            const body = {
                 code: 20000,
                 data: {
-                    total: mockList.length,
+                    total: docs.length,
                     items: pageList,
                 },
             };
-            res.json(docs[0]);
+            res.json(body);
         });
 });
 module.exports = router;

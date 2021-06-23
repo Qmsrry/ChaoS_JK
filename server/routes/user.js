@@ -2,28 +2,29 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-const Auth = mongoose.model('Auth');
+const User = mongoose.model('User');
 
-/* Get username & passwod, Return the token */
+/* Get token, Return user info */
 router.post('/', function (req, res, next) {
-  const{username, password} = req.body
+  const{token} = req.body
   console.log(req.body)
-  Auth.findOne({username,password},
+  User.findOne({email:token},
     function (err, doc) {
       if (err) return console.error(err);
-      if (doc)//存在该用户名与密码
+      if (doc)//存在该邮箱对应用户数据
       {
-        res.json({status:0,token: doc.email})
+        payload = {username:doc.name, role:doc.role}
+        res.json({ status: 0, ...payload });
       }
       else
       {
-        res.json({status:1,message: "用户名或密码错误"})
+        res.json({status:1,message: "获取用户信息失败"})
       }
     });
 });
 
 router.get('/', function(req, res, next) {
-  Auth.find({},
+  User.find({},
     function (err, docs) {
       if (err) return console.error(err);
       res.json(docs[0]);

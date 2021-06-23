@@ -33,9 +33,9 @@ class TableComponent extends Component {
       id: 0,
       name: "",
       data: 0,
-      date: "",
+      date: null,
+      location:"",
       status: "online",
-      title: ""
     }
   };
   fetchData = () => {
@@ -122,7 +122,6 @@ class TableComponent extends Component {
       }
       const values = {
         ...fieldsValue,
-        'star': "".padStart(fieldsValue['star'], '★'),
         'date': fieldsValue['date'].format('YYYY-MM-DD HH:mm:ss'),
       };
       this.setState({ editModalLoading: true, });
@@ -169,6 +168,21 @@ class TableComponent extends Component {
           </Panel>
         </Collapse>
         <br />
+        <Collapse defaultActiveKey={["1"]}>
+          <Panel header="添加" key="1">
+            <Form layout="inline">
+              <Form.Item label="设备名:">
+                <Input onChange={this.filterNameChange} />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" icon="plus" onClick={this.fetchData}>
+                  新增
+                </Button>
+              </Form.Item>
+            </Form>
+          </Panel>
+        </Collapse>
+        <br />
         <Table
           bordered
           rowKey={(record) => record.id}
@@ -188,7 +202,8 @@ class TableComponent extends Component {
               </Tag>
             );
           }}/>
-          <Column title="时间" dataIndex="date" key="date" width={195} align="center"/>
+          <Column title="最近通信时间" dataIndex="date" key="date" width={195} align="center" />
+          <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center"/>
           <Column title="操作" key="action" width={195} align="center"render={(text, row) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null,row)}/>

@@ -14,7 +14,7 @@ class EditForm extends Component {
       currentRowData,
     } = this.props;
     const { getFieldDecorator } = form;
-    const { id, author, date, readings, star, status, title } = currentRowData;
+    const { id, date, data, status, location, name } = currentRowData;
     const formItemLayout = {
       labelCol: {
         sm: { span: 4 },
@@ -37,37 +37,37 @@ class EditForm extends Component {
               initialValue: id,
             })(<Input disabled />)}
           </Form.Item>
-          <Form.Item label="标题:">
-            {getFieldDecorator("title", {
-              rules: [{ required: true, message: "请输入标题!" }],
-              initialValue: title,
-            })(<Input placeholder="标题" />)}
-          </Form.Item>
-          <Form.Item label="作者:">
-            {getFieldDecorator("author", {
-              initialValue: author,
+          <Form.Item label="上传量:">
+            {getFieldDecorator("data", {
+              initialValue: data,
             })(<Input disabled />)}
           </Form.Item>
-          <Form.Item label="阅读量:">
-            {getFieldDecorator("readings", {
-              initialValue: readings,
-            })(<Input disabled />)}
+          <Form.Item label="设备名:">
+            {getFieldDecorator("name", {
+              rules: [{ required: true, message: "请输入设备名!" }],
+              initialValue: name,
+            })(<Input placeholder="设备名" />)}
           </Form.Item>
           <Form.Item label="状态:">
             {getFieldDecorator("status", {
               initialValue: status,
             })(
               <Select style={{ width: 120 }}>
-                <Select.Option value="published">published</Select.Option>
-                <Select.Option value="draft">draft</Select.Option>
+                <Select.Option value="online">online</Select.Option>
+                <Select.Option value="offline">offline</Select.Option>
               </Select>
             )}
           </Form.Item>
           <Form.Item label="时间:">
             {getFieldDecorator("date", {
-              rules: [{ type: 'object', required: true, message: '请选择时间!' }],
+              rules: [{ type: 'object', required: false, message: '请选择时间!' }],
               initialValue: moment(date || "YYYY-MM-DD HH:mm:ss"),
-            })(<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />)}
+            })(<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" disabled />)}
+          </Form.Item>
+          <Form.Item label="地点:">
+            {getFieldDecorator("location", {
+              initialValue: location,
+            })(<Input disabled />)}
           </Form.Item>
         </Form>
       </Modal>

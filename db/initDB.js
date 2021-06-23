@@ -54,6 +54,8 @@ const deviceSchema = new mongoose.Schema({
   owner: { type: Schema.Types.ObjectId, ref: 'User' },
   name: String,
   online: Boolean,
+  time: Date,
+  data: Number,
   packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
   location: [pointSchema]
 });

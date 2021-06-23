@@ -11,12 +11,13 @@ for (let i = 0; i < count; i++) {
       data: "@integer(300, 5000)",
       "status|1": ["online", "offline"],
       date: "@datetime",
+      location:"[@int(-180,180), @int(-90,90)]"
     })
   );
 }
 export default {
   tableList: (config) => {
-    const { pageNumber, pageSize, name, status, star } = JSON.parse(
+    const { pageNumber, pageSize, name, status } = JSON.parse(
       config.body
     );
     let start = (pageNumber - 1) * pageSize;

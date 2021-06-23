@@ -20,3 +20,11 @@ const userSchema = new mongoose.Schema({
 );
 
 const User = mongoose.model('User', userSchema);
+
+const TEST_User = new User({
+  name: "test",
+  email: "csjk@zju.edu.cn",
+  role: "admin"
+})
+
+TEST_User.save();

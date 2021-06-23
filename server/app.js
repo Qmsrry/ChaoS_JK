@@ -13,6 +13,7 @@ var db = mongoose();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var authRouter = require("./routes/auth");
+var deviceRouter = require("./routes/device");
 var app = express();
 
 // view engine setup
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use("/auth", authRouter);
+app.use("/device", deviceRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

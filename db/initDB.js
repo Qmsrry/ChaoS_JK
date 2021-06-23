@@ -51,13 +51,15 @@ const pointSchema = new mongoose.Schema({
 
 //设备信息
 const deviceSchema = new mongoose.Schema({
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
-  name: String,
-  online: Boolean,
-  time: Date,
-  data: Number,
-  packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
-  location: [pointSchema]
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    id:{type:Number, require:true, unique:true},
+    name: String,
+    online: Boolean,
+    warning: Boolean,
+    time: Date,
+    data: Number,
+    packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
+    location: [pointSchema]
 });
 
 //MQTT包信息

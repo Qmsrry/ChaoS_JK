@@ -11,7 +11,7 @@ import {
   message,
   Select
 } from "antd";
-import { tableList, deleteItem,editItem } from "@/api/table";
+import { tableList, deleteItem, editItem } from "@/api/table";
 import EditForm from "./forms/editForm"
 const { Column } = Table;
 const { Panel } = Collapse;
@@ -25,7 +25,7 @@ class TableComponent extends Component {
       pageNumber: 1,
       pageSize: 10,
       name: "",
-      status:""
+      status: ""
     },
     editModalVisible: false,
     editModalLoading: false,
@@ -34,7 +34,7 @@ class TableComponent extends Component {
       name: "",
       data: 0,
       date: null,
-      location:"",
+      location: "",
       status: "online",
     }
   };
@@ -62,7 +62,7 @@ class TableComponent extends Component {
     this.setState((state) => ({
       listQuery: {
         ...state.listQuery,
-        name:value,
+        name: value,
       }
     }));
   };
@@ -70,7 +70,7 @@ class TableComponent extends Component {
     this.setState((state) => ({
       listQuery: {
         ...state.listQuery,
-        status:value,
+        status: value,
       }
     }));
   };
@@ -102,14 +102,14 @@ class TableComponent extends Component {
     );
   };
   handleDelete = (row) => {
-    deleteItem({id:row.id}).then(res => {
+    deleteItem({ id: row.id }).then(res => {
       message.success("删除成功")
       this.fetchData();
     })
   }
   handleEdit = (row) => {
     this.setState({
-      currentRowData:Object.assign({}, row),
+      currentRowData: Object.assign({}, row),
       editModalVisible: true,
     });
   };
@@ -133,7 +133,7 @@ class TableComponent extends Component {
       }).catch(e => {
         message.success("编辑失败,请重试!")
       })
-      
+
     });
   };
 
@@ -190,9 +190,9 @@ class TableComponent extends Component {
           loading={this.state.loading}
           pagination={false}
         >
-          <Column title="序号" dataIndex="id" key="id" width={200} align="center" sorter={(a, b) => a.id - b.id}/>
-          <Column title="设备名" dataIndex="name" key="name" width={200} align="center"/>
-          <Column title="上传量" dataIndex="data" key="data" width={195} align="center"/>
+          <Column title="序号" dataIndex="id" key="id" width={200} align="center" sorter={(a, b) => a.id - b.id} />
+          <Column title="设备名" dataIndex="name" key="name" width={200} align="center" />
+          <Column title="上传量" dataIndex="data" key="data" width={195} align="center" />
           <Column title="状态" dataIndex="status" key="status" width={195} align="center" render={(status) => {
             let color =
               status === "online" ? "green" : status === "offline" ? "red" : "";
@@ -201,16 +201,16 @@ class TableComponent extends Component {
                 {status}
               </Tag>
             );
-          }}/>
+          }} />
           <Column title="最近通信时间" dataIndex="date" key="date" width={195} align="center" />
-          <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center"/>
-          <Column title="操作" key="action" width={195} align="center"render={(text, row) => (
+          <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" />
+          <Column title="操作" key="action" width={195} align="center" render={(text, row) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null,row)}/>
+              <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null, row)} />
               <Divider type="vertical" />
-              <Button type="primary" shape="circle" icon="delete" title="删除" onClick={this.handleDelete.bind(null,row)}/>
+              <Button type="primary" shape="circle" icon="delete" title="删除" onClick={this.handleDelete.bind(null, row)} />
             </span>
-          )}/>
+          )} />
         </Table>
         <br />
         <Pagination
@@ -231,7 +231,7 @@ class TableComponent extends Component {
           confirmLoading={this.state.editModalLoading}
           onCancel={this.handleCancel}
           onOk={this.handleOk}
-        />  
+        />
       </div>
     );
   }

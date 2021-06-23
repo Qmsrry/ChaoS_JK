@@ -5,5 +5,6 @@ module.exports = function() {
     var db = mongoose.connect(config.mongodb, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 120 });
     require('../models/auth.js');
     require('../models/user.js');
+    require('../models/device.js')
     return db;
 }

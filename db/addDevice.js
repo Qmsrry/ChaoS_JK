@@ -34,6 +34,7 @@ const pointSchema = new mongoose.Schema({
 //设备信息
 const deviceSchema = new mongoose.Schema({
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    id:{type:Number, require:true, unique:true},
     name: String,
     online: Boolean,
     warning: Boolean,
@@ -51,6 +52,7 @@ User.findOne({ name: 'test' }, function (err, res) {
     for (var i = 0; i < 10; i++) {
         const TEST_Pos = { type: 'Point', coordinates: [i, i] };
         const TEST_Device = new Device({
+            id :i,
             owner: test_id,
             name: "robot" + i,
             online: true,

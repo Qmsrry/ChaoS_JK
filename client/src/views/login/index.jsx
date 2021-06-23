@@ -22,6 +22,8 @@ const Login = (props) => {
       })
       .catch((error) => {
         setLoading(false);
+        console.log("出错了");
+        console.log(error);
         message.error(error);
       });
   };

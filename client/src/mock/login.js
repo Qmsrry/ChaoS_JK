@@ -6,7 +6,7 @@ const tokens = {
 };
 
 const users = {
-  "admin-token": {
+  "csjk@zju.edu.cn": {
     // id: "admin",
     role: "admin",
     name: "SJoJoK",
@@ -52,7 +52,7 @@ export default {
     };
   },
   userInfo: (config) => {
-    const token = config.body;
+    const { token } = JSON.parse(config.body)
     const userInfo = users[token];
     if (!userInfo) {
       return {

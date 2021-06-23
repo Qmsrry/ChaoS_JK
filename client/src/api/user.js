@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function reqUserInfo(data) {
   return request({
-    url: '/userInfo',
+    url: '/user',
     method: 'post',
     data
   })

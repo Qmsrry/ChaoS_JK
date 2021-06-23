@@ -5,6 +5,7 @@ export const login = (username, password) => (dispatch) => {
   return new Promise((resolve, reject) => {
     reqLogin({ username: username.trim(), password: password })
       .then((response) => {
+        console.log("auth_data received!");
         const { data } = response;
         if (data.status === 0) {
           const token = data.token;
@@ -18,6 +19,8 @@ export const login = (username, password) => (dispatch) => {
         }
       })
       .catch((error) => {
+        console.log("There's an error");
+        console.log(error);
         reject(error);
       });
   });

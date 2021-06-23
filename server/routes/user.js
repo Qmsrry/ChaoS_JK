@@ -13,7 +13,7 @@ router.post('/', function (req, res, next) {
       if (err) return console.error(err);
       if (doc)//存在该邮箱对应用户数据
       {
-        payload = {username:doc.name, role:doc.role}
+        payload = {name:doc.name, role:doc.role, avatar:null}
         res.json({ status: 0, ...payload });
       }
       else

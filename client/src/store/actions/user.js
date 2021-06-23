@@ -6,8 +6,9 @@ export const getUserInfo = (token) => (dispatch) => {
     reqUserInfo({ token })
       .then((response) => {
         const { data } = response;
+        console.log(data);
         if (data.status === 0) {
-          const userInfo = data.userInfo;
+          const userInfo = {name:data.name, role:data.role}
           dispatch(setUserInfo(userInfo));
           resolve(data);
         } else {
@@ -22,11 +23,6 @@ export const getUserInfo = (token) => (dispatch) => {
 };
 
 export const setUserToken = (token) => {
-  // const e = {
-  //   type: types.USER_SET_USER_TOKEN,
-  //   token,
-  // };
-  // console.log(e);
   return {
     type: types.USER_SET_USER_TOKEN,
     token,
@@ -34,11 +30,6 @@ export const setUserToken = (token) => {
 };
 
 export const setUserInfo = (userInfo) => {
-  // const res = {
-  //   type: types.USER_SET_USER_INFO,
-  //   ...userInfo,
-  // };
-  // console.log(res);
   return {
     type: types.USER_SET_USER_INFO,
     ...userInfo,

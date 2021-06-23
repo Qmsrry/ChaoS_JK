@@ -96,7 +96,7 @@ const RightPanel = (props) => {
           </Col>
         </Row>
         <Divider dashed />
-        <Row>
+        {/* <Row>
           <Col span={24}>
             <Alert
               message="开发者请注意:"
@@ -110,7 +110,7 @@ const RightPanel = (props) => {
               拷贝配置
             </Button>
           </Col>
-        </Row>
+        </Row> */}
       </Drawer>
     </div>
   );

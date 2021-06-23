@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Drawer, Switch, Row, Col, Divider, Alert, Icon, Button } from "antd";
+import { Drawer, Switch, Row, Col, Divider} from "antd";
 import { toggleSettingPanel, changeSetting } from "@/store/actions";
-import clip from "@/utils/clipboard";
 
 const RightPanel = (props) => {
   const {
@@ -31,18 +30,6 @@ const RightPanel = (props) => {
   const tagsViewChange = (checked) => {
     setTagsView(checked);
     changeSetting({ key: "tagsView", value: checked });
-  };
-
-  const handleCopy = (e) => {
-    let config = `
-    export default {
-      showSettings: true,
-      sidebarLogo: ${sidebarLogo},
-      fixedHeader: ${fixedHeader},
-      tagsView: ${tagsView},
-    }
-    `;
-    clip(config, e);
   };
 
   return (

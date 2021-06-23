@@ -18,10 +18,7 @@ const lineChartDefaultData = {
   },
   "数据量": {
     actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  "暂未开放": {
-    actualData: [1, 1, 1, 1, 1, 1, 1]
-  },
+  }
 };
 
 const Dashboard = () => {
@@ -46,12 +43,12 @@ const Dashboard = () => {
       />
 
       <Row gutter={32}>
-        <Col xs={24} sm={24} lg={8}>
+        <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
             <PieChart />
           </div>
         </Col>
-        <Col xs={24} sm={24} lg={8}>
+        <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
             <BarChart />
           </div>

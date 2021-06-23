@@ -21,13 +21,7 @@ const chartList = [
     icon: "database",
     num: 9280,
     color: "#f4516c",
-  },
-  {
-    type: "暂未开放",
-    icon: "question",
-    num: 0,
-    color: "#f6ab40",
-  },
+  }
 ];
 
 const PanelGroup = (props) => {
@@ -38,7 +32,7 @@ const PanelGroup = (props) => {
         {chartList.map((chart, i) => (
           <Col
             key={i}
-            lg={6}
+            lg={8}
             sm={12}
             xs={12}
             onClick={handleSetLineChartData.bind(this, chart.type)}

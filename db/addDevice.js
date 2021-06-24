@@ -16,8 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   role: String,
   devices: [{ type: Schema.Types.ObjectId, ref: 'Device' }]
-}
-)
+})
 
 const pointSchema = new mongoose.Schema({
   type: {
@@ -42,7 +41,7 @@ const deviceSchema = new mongoose.Schema({
     data: Number,
     packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
     location: [pointSchema]
-});
+}, { timestamps: { createdAt: 'createtime' } });
 
 const User = mongoose.model('User', userSchema);
 const Device = mongoose.model('Device', deviceSchema);
@@ -58,7 +57,7 @@ User.findOne({ name: 'test' }, function (err, res) {
             online: true,
             warning: false,
             data:i,
-            time : new Date(),
+            time: new Date(),
         })
         TEST_Device.location.push(TEST_Pos);
         TEST_Device.markModified('time')

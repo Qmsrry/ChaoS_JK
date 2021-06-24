@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 const Device = mongoose.model('Device');
 const User = mongoose.model('User');
-/* Get username & passwod, Return the token */
+
 router.get('/', function (req, res, next) {
     const token = req.get("Authorization");
     if (token) {
@@ -120,7 +120,9 @@ router.delete('/', async (req, res, next) => {
         const udoc = await User.findOne({ email: token })
         if (udoc) {
             const uid = udoc._id;
-            const _ = await Device.deleteOne({ owner: uid, id: editdata.id }).exec();
+            const d = await Device.findOneAndDelete({ owner: uid, id: editdata.id }).exec();
+            const did = d._id;
+            //等待添加包的信息，需要一并删除
             res.status(204);
             res.send();
         }

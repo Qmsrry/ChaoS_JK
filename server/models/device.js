@@ -13,7 +13,7 @@ const pointSchema = new mongoose.Schema({
 
 const deviceSchema = new mongoose.Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    id:{type:Number, require:true, unique:true},
+    id: { type: Number, require: true, unique: true },
     name: String,
     online: Boolean,
     warning: Boolean,
@@ -21,5 +21,5 @@ const deviceSchema = new mongoose.Schema({
     data: Number,
     packages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pkg' }],
     location: [pointSchema]
-});
+}, { timestamps: { createdAt: 'createtime' } });
 mongoose.model('Device', deviceSchema);

@@ -14,8 +14,8 @@ export function deviceList(data) {
 
 export function deleteDevice(data) {
   return request({
-    url: '/table/delete',
-    method: 'post',
+    url: '/device',
+    method: 'delete',
     data
   })
 }
@@ -32,8 +32,6 @@ export function addDevice(data) {
   return request({
     url: '/device',
     method: 'post',
-    data: {
-      addname:data
-    }
+    data
   })
 }

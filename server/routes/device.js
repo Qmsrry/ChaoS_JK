@@ -13,25 +13,33 @@ router.get('/', function (req, res, next) {
         const start = req.query.start;
         const end = req.query.end;
         User.findOne({ email: token }, function (err, doc) {
-            const uid = doc._id;
-            let filter = { owner: uid };
-            if (name) {
-                filter.name = name;
+            if (doc)
+            {
+                const uid = doc._id;
+                let filter = { owner: uid };
+                if (name) {
+                    filter.name = name;
+                }
+                if (req.query.status) {
+                    filter.online = online;
+                }
+                Device.find(filter, 'id name data time location online')
+                    .sort({ id: 1 })
+                    .exec(function (err, docs) {
+                        if (err) return console.error(err);
+                        const pageList = docs.slice(start, end);
+                        const body = {
+                            total: docs.length,
+                            items: pageList,
+                        };
+                        res.status(200);
+                        res.json(body);
+                    })
             }
-            if (req.query.status) {
-                filter.online = online;
+            else {
+                res.status(401);
+                res.json({ message: "获取用户信息失败" });
             }
-            Device.find(filter, 'id name data time location online')
-                .sort({ id: 1 })
-                .exec(function (err, docs) {
-                    if (err) return console.error(err);
-                    const pageList = docs.slice(start, end);
-                    const body = {
-                        total: docs.length,
-                        items: pageList,
-                    };
-                    res.json(body);
-                })
         })
     }
     else {
@@ -89,6 +97,31 @@ router.put('/', async (req, res, next) => {
             const _ = await Device.updateOne({ owner: uid, id: editdata.id },
                 { name: editdata.name, online: editdata.status === 'online' ? true : false }).exec();
             res.status(201);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.json({ message: "获取用户信息失败" });
+        }
+
+    }
+    else {
+        res.status(401);
+        res.json({ message: "获取token信息失败" });
+    }
+
+});
+
+router.delete('/', async (req, res, next) => {
+    const token = req.get("Authorization");
+    const editdata = req.body;
+    console.log(req.body)
+    if (token) {
+        const udoc = await User.findOne({ email: token })
+        if (udoc) {
+            const uid = udoc._id;
+            const _ = await Device.deleteOne({ owner: uid, id: editdata.id }).exec();
+            res.status(204);
             res.send();
         }
         else {

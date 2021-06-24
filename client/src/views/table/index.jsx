@@ -72,7 +72,8 @@ class TableComponent extends Component {
   };
   addData = () => {
     this.setState({ loading: true });
-    addDevice(this.state.addname).then((response) => {
+    const addname = this.state.addname;
+    addDevice({addname}).then((response) => {
       if (response.status === 201)
       {
         message.success("添加成功！")
@@ -129,8 +130,15 @@ class TableComponent extends Component {
   };
   handleDelete = (row) => {
     deleteDevice({ id: row.id }).then(res => {
-      message.success("删除成功")
-      this.fetchData();
+      if (res.status === 204)
+      {
+        message.success("删除成功")
+        this.fetchData();
+      }
+      else
+      {
+        message.success("删除失败")
+      } 
     })
   }
   handleEdit = (row) => {

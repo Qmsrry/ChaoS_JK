@@ -160,14 +160,21 @@ class TableComponent extends Component {
       }
       const values = {
         ...fieldsValue,
-        'date': fieldsValue['date'].format('YYYY-MM-DD HH:mm:ss'),
+        // 'date': fieldsValue['date'].format('YYYY-MM-DD HH:mm:ss'),
       };
       this.setState({ editModalLoading: true, });
       editDevice(values).then((response) => {
-        form.resetFields();
-        this.setState({ editModalVisible: false, editModalLoading: false });
-        message.success("编辑成功!")
-        this.fetchData()
+        if (response.status === 201)
+        {
+          form.resetFields();
+          this.setState({ editModalVisible: false, editModalLoading: false });
+          message.success("编辑成功!")
+          this.fetchData()
+        }
+        else
+        {
+          message.success("编辑失败!")
+        }
       }).catch(e => {
         message.success("编辑失败,请重试!")
       })

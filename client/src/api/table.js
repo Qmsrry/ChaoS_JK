@@ -22,8 +22,8 @@ export function deleteDevice(data) {
 
 export function editDevice(data) {
   return request({
-    url: '/table/edit',
-    method: 'post',
+    url: '/device',
+    method: 'put',
     data
   })
 }

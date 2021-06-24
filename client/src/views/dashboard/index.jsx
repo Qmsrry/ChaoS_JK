@@ -8,10 +8,10 @@ import PieChart from "./components/PieChart";
 
 const lineChartDefaultData = {
   "设备数": {
-    actualData: [120, 82, 91, 154, 162, 140, 145]
+    actualData: [1, 1, 1, 1, 1, 1, 12]
   },
   "数据包": {
-    actualData: [180, 160, 151, 106, 145, 150, 130]
+    actualData: [180, 200, 151, 106, 145, 150, 130]
   },
   "数据量": {
     actualData: [120, 90, 100, 138, 142, 130, 130]

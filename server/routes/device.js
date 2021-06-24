@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
             if (name) {
                 filter.name = name;
             }
-            if (online) {
+            if (req.query.status) {
                 filter.online = online;
             }
             Device.find(filter,'id name data time location online',

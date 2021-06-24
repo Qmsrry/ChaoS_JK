@@ -1,7 +1,12 @@
 import request from '@/utils/request'
 export function tableList(data) {
+  const start = (data.pageNumber - 1) * data.pageSize;
+  const end = data.pageNumber * data.pageSize;
+  const name = data.name;
+  const status = data.status;
+  const tmp = '' + (name ? '&name=' + name : '') + (status ? '&status=' + status : '')
   return request({
-    url: '/device',
+    url: '/device?start='+start+'&end='+end+tmp,
     method: 'get',
     data
   })

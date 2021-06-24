@@ -3,11 +3,11 @@ import { reqUserInfo } from "@/api/user";
 
 export const getUserInfo = (token) => (dispatch) => {
   return new Promise((resolve, reject) => {
-    reqUserInfo({ token })
+    reqUserInfo()
       .then((response) => {
+        const status = response.status;
         const { data } = response;
-        console.log(data);
-        if (data.status === 0) {
+        if (status === 200) {
           const userInfo = {name:data.name, role:data.role}
           dispatch(setUserInfo(userInfo));
           resolve(data);

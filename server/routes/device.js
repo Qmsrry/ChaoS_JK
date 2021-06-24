@@ -40,8 +40,40 @@ router.get('/', function (req, res, next) {
     }
     else
     {
-        res.json({ status: 1, message: "获取用户信息失败" });
+        res.status(401);
+        res.json({ message: "获取token信息失败" });
     }
     
+});
+
+router.post('/', function (req, res, next) {
+    const token = req.get("Authorization");
+    const addname = req.body.addname;
+    console.log(req.body)
+    if (token) {     
+        User.findOne({ email: token }, function (err, doc) {
+            const uid = doc._id;
+            Device.count({ owner: uid }, function (err, cnt) {
+                const TEST_Device = new Device({
+                    id: cnt,
+                    owner: uid,
+                    name: addname,
+                    online: false,
+                    warning: false,
+                    data: 0,
+                    time: new Date(),
+                })
+                TEST_Device.markModified('time')
+                TEST_Device.save()
+                res.status(201);
+                res.send();
+            })
+        })
+    }
+    else {
+        res.status(401);
+        res.json({ message: "获取token信息失败" });
+    }
+
 });
 module.exports = router;

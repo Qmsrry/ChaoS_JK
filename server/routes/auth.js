@@ -13,20 +13,15 @@ router.post('/', function (req, res, next) {
       if (err) return console.error(err);
       if (doc)//存在该用户名与密码
       {
-        res.json({status:0,token: doc.email})
+        res.status(200);
+        res.json({token: doc.email})
       }
       else
       {
-        res.json({status:1,message: "用户名或密码错误"})
+        res.status(401);
+        res.json({message: "用户名或密码错误"})
       }
     });
 });
 
-router.get('/', function(req, res, next) {
-  Auth.find({},
-    function (err, docs) {
-      if (err) return console.error(err);
-      res.json(docs[0]);
-    });
-});
 module.exports = router;

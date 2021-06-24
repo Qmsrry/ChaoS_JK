@@ -6,8 +6,9 @@ export const login = (username, password) => (dispatch) => {
     reqLogin({ username: username.trim(), password: password })
       .then((response) => {
         console.log("auth_data received!");
+        const status = response.status;
         const { data } = response;
-        if (data.status === 0) {
+        if (status === 200) {
           const token = data.token;
           console.log(token);
           dispatch(setUserToken(token));

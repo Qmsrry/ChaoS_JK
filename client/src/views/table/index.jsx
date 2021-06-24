@@ -12,7 +12,7 @@ import {
   message,
   Select
 } from "antd";
-import { tableList, deleteItem, editItem } from "@/api/table";
+import { deviceList, deleteDevice, editDevice, addDevice } from "@/api/table";
 import EditForm from "./forms/editForm"
 const { Column } = Table;
 const { Panel } = Collapse;
@@ -22,6 +22,7 @@ class TableComponent extends Component {
     list: [],
     loading: false,
     total: 0,
+    addname:"",
     listQuery: {
       pageNumber: 1,
       pageSize: 10,
@@ -41,22 +42,43 @@ class TableComponent extends Component {
   };
   fetchData = () => {
     this.setState({ loading: true });
-    tableList(this.state.listQuery).then((response) => {
-      console.log(response.data.data.items);
-      console.log(response.data.data.total);
-      this.setState({ loading: false });
-      const list = response.data.data.items.map((item)=>{
-        return {
-          id :item.id,
-          name:item.name,
-          data: item.data,
-          date: moment(item.time).format('YYYY-MM-DD HH:mm:ss'),
-          status:item.online?'online':'offline'
-        };
-      });
-      const total = response.data.data.total;
-      if (this._isMounted) {
-        this.setState({ list, total });
+    deviceList(this.state.listQuery).then((response) => {
+      // console.log(response.data.data.items);
+      // console.log(response.data.data.total);
+      if (response.status === 200)
+      {
+        this.setState({ loading: false });
+        const list = response.data.data.items.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            data: item.data,
+            date: moment(item.time).format('YYYY-MM-DD HH:mm:ss'),
+            status: item.online ? 'online' : 'offline'
+          };
+        });
+        const total = response.data.data.total;
+        if (this._isMounted) {
+          this.setState({ list, total });
+        }
+      }
+      else
+      {
+        message.warning("获取设备列表出错!")  
+      }
+    });
+  };
+  addData = () => {
+    this.setState({ loading: true });
+    addDevice(this.state.addname).then((response) => {
+      if (response.status === 201)
+      {
+        message.success("添加成功！")
+        this.fetchData();
+      }
+      else
+      {
+        message.warning("添加失败！")
       }
     });
   };
@@ -83,6 +105,12 @@ class TableComponent extends Component {
         status: value,
       }
     }));
+  };
+  addNameChange = (e) => {
+    const value = e.target.value
+    this.setState({
+      addname: value
+    });
   };
   changePage = (pageNumber, pageSize) => {
     this.setState(
@@ -112,7 +140,7 @@ class TableComponent extends Component {
     );
   };
   handleDelete = (row) => {
-    deleteItem({ id: row.id }).then(res => {
+    deleteDevice({ id: row.id }).then(res => {
       message.success("删除成功")
       this.fetchData();
     })
@@ -135,7 +163,7 @@ class TableComponent extends Component {
         'date': fieldsValue['date'].format('YYYY-MM-DD HH:mm:ss'),
       };
       this.setState({ editModalLoading: true, });
-      editItem(values).then((response) => {
+      editDevice(values).then((response) => {
         form.resetFields();
         this.setState({ editModalVisible: false, editModalLoading: false });
         message.success("编辑成功!")
@@ -182,10 +210,10 @@ class TableComponent extends Component {
           <Panel header="添加" key="1">
             <Form layout="inline">
               <Form.Item label="设备名:">
-                <Input onChange={this.filterNameChange} />
+                <Input onChange={this.addNameChange} />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" icon="plus" onClick={this.fetchData}>
+                <Button type="primary" icon="plus" onClick={this.addData}>
                   新增
                 </Button>
               </Form.Item>

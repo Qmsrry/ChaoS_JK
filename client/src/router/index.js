@@ -20,8 +20,8 @@ class Router extends React.Component {
                 if (role) {
                   return <Layout />;
                 } else {
-                  console.log('无Role有Token');
-                  console.log(token);
+                  console.log('无Role有Token登录');
+                  console.log('使用token为'+token);
                   getUserInfo(token).then(() => <Layout />);
                 }
               }

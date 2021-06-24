@@ -2,6 +2,36 @@
 # yarn lockfile v1
 
 
+"@types/bson@*":
+  version "4.0.3"
+  resolved "https://registry.nlark.com/@types/bson/download/@types/bson-4.0.3.tgz?cache=0&sync_timestamp=1621240731917&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fbson%2Fdownload%2F%40types%2Fbson-4.0.3.tgz#30889d2ffde6262abbe38659364c631454999fbf"
+  integrity sha1-MIidL/3mJiq744ZZNkxjFFSZn78=
+  dependencies:
+    "@types/node" "*"
+
+"@types/mongodb@^3.5.27":
+  version "3.6.18"
+  resolved "https://registry.nlark.com/@types/mongodb/download/@types/mongodb-3.6.18.tgz#7524c462fc7e3b67892afda8211cd045edee65eb"
+  integrity sha1-dSTEYvx+O2eJKv2oIRzQRe3uZes=
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
+
+"@types/node@*":
+  version "15.12.4"
+  resolved "https://registry.nlark.com/@types/node/download/@types/node-15.12.4.tgz?cache=0&sync_timestamp=1624437242670&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
+  integrity sha1-4c+BfXCh4RjoGSLE/2aDzp1CLiY=
+
+aedes-cached-persistence@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.nlark.com/aedes-cached-persistence/download/aedes-cached-persistence-8.1.1.tgz#9a981c6591747914e0b7ad83e0f81b4407c5ed0b"
+  integrity sha1-mpgcZZF0eRTgt62D4PgbRAfF7Qs=
+  dependencies:
+    aedes-persistence "^8.1.2"
+    fastparallel "^2.4.0"
+    multistream "^4.0.1"
+    qlobber "^5.0.3"
+
 aedes-packet@^2.3.1:
   version "2.3.1"
   resolved "http://mirrors.cloud.tencent.com/npm/aedes-packet/-/aedes-packet-2.3.1.tgz#87916fb25618c63a286ee7cee260062fb7471d6d"
@@ -9,7 +39,21 @@ aedes-packet@^2.3.1:
   dependencies:
     mqtt-packet "^6.3.0"
 
-aedes-persistence@^8.1.3:
+aedes-persistence-mongodb@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.nlark.com/aedes-persistence-mongodb/download/aedes-persistence-mongodb-8.2.0.tgz#1a45e8d3b1608cf1844c97f6394496b541f21e54"
+  integrity sha1-GkXo07FgjPGETJf2OUSWtUHyHlQ=
+  dependencies:
+    aedes-cached-persistence "^8.1.1"
+    escape-string-regexp "^4.0.0"
+    fastparallel "^2.3.0"
+    mongodb "^3.6.0"
+    native-url "^0.3.1"
+    pump "^3.0.0"
+    qlobber "^5.0.0"
+    through2 "^4.0.1"
+
+aedes-persistence@^8.1.2, aedes-persistence@^8.1.3:
   version "8.1.3"
   resolved "http://mirrors.cloud.tencent.com/npm/aedes-persistence/-/aedes-persistence-8.1.3.tgz#3c7981dcdbfd33d5e4593d0d386f4c306e444b1e"
   integrity sha512-VMCjEV+2g1TNJb/IlDEUy6SP9crT+QUhe2xc6UjyqrFNBNgTvHmOefXY7FxWrwmR2QA02vwg3+5p/JXkyg/Dkw==
@@ -48,6 +92,14 @@ base64-js@^1.3.1:
   resolved "http://mirrors.tencent.com/npm/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
+bl@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.nlark.com/bl/download/bl-2.2.1.tgz#8c11a7b730655c5d56898cdc871224f40fd901d5"
+  integrity sha1-jBGntzBlXF1WiYzchxIk9A/ZAdU=
+  dependencies:
+    readable-stream "^2.3.5"
+    safe-buffer "^5.1.1"
+
 bl@^4.0.2:
   version "4.1.0"
   resolved "http://mirrors.tencent.com/npm/bl/-/bl-4.1.0.tgz#451535264182bec2fbbc83a62ab98cf11d9f7b3a"
@@ -57,6 +109,11 @@ bl@^4.0.2:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
+bluebird@3.5.1:
+  version "3.5.1"
+  resolved "https://registry.npm.taobao.org/bluebird/download/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+  integrity sha1-2VUfnemPH82h5oPRfukaBgLuLrk=
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.nlark.com/brace-expansion/download/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -64,6 +121,11 @@ brace-expansion@^1.1.7:
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
+
+bson@^1.1.4:
+  version "1.1.6"
+  resolved "https://registry.nlark.com/bson/download/bson-1.1.6.tgz#fb819be9a60cd677e0853aee4ca712a785d6618a"
+  integrity sha1-+4Gb6aYM1nfghTruTKcSp4XWYYo=
 
 buffer-from@^1.0.0:
   version "1.1.1"
@@ -114,12 +176,24 @@ core-util-is@~1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
+debug@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz?cache=0&sync_timestamp=1607566571506&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdebug%2Fdownload%2Fdebug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
+  dependencies:
+    ms "2.0.0"
+
 debug@^4.1.1:
   version "4.3.1"
   resolved "https://mirrors.cloud.tencent.com/npm/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
   integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
   dependencies:
     ms "2.1.2"
+
+denque@^1.4.1:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/denque/download/denque-1.5.0.tgz#773de0686ff2d8ec2ff92914316a47b73b1c73de"
+  integrity sha1-dz3gaG/y2Owv+SkUMWpHtzscc94=
 
 duplexify@^4.1.1:
   version "4.1.1"
@@ -137,6 +211,11 @@ end-of-stream@^1.1.0, end-of-stream@^1.4.1, end-of-stream@^1.4.4:
   integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
   dependencies:
     once "^1.4.0"
+
+escape-string-regexp@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/escape-string-regexp/download/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
+  integrity sha1-FLqDpdNz49MR5a/KKc9b+tllvzQ=
 
 fastfall@^1.5.1:
   version "1.5.1"
@@ -222,10 +301,20 @@ isarray@~1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
+kareem@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npm.taobao.org/kareem/download/kareem-2.3.2.tgz#78c4508894985b8d38a0dc15e1a8e11078f2ca93"
+  integrity sha1-eMRQiJSYW404oNwV4ajhEHjyypM=
+
 leven@^2.1.0:
   version "2.1.0"
   resolved "https://registry.nlark.com/leven/download/leven-2.1.0.tgz#c2e7a9f772094dee9d34202ae8acce4687875580"
   integrity sha1-wuep93IJTe6dNCAq6KzORoeHVYA=
+
+memory-pager@^1.0.2:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/memory-pager/download/memory-pager-1.5.0.tgz#d8751655d22d384682741c972f2c3d6dfa3e66b5"
+  integrity sha1-2HUWVdItOEaCdByXLyw9bfo+ZrU=
 
 minimatch@^3.0.4:
   version "3.0.4"
@@ -238,6 +327,60 @@ minimist@^1.1.0, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.nlark.com/minimist/download/minimist-1.2.5.tgz?cache=0&sync_timestamp=1618847003091&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fminimist%2Fdownload%2Fminimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+
+mongodb@3.6.8:
+  version "3.6.8"
+  resolved "https://registry.nlark.com/mongodb/download/mongodb-3.6.8.tgz#3e2632af81915b3ff99b7681121ca0895e8ed407"
+  integrity sha1-PiYyr4GRWz/5m3aBEhygiV6O1Ac=
+  dependencies:
+    bl "^2.2.1"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    optional-require "^1.0.3"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
+mongodb@^3.6.0:
+  version "3.6.9"
+  resolved "https://registry.nlark.com/mongodb/download/mongodb-3.6.9.tgz#4889cf529724267d393a18275d6cf19d71905b1d"
+  integrity sha1-SInPUpckJn05OhgnXWzxnXGQWx0=
+  dependencies:
+    bl "^2.2.1"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    optional-require "^1.0.3"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
+mongoose-legacy-pluralize@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
+  integrity sha1-O6n5H6UHtRhtOZ+0CFS/8Y+1Y+Q=
+
+mongoose@^5.12.14:
+  version "5.12.14"
+  resolved "https://registry.nlark.com/mongoose/download/mongoose-5.12.14.tgz#610460f0725acf67b3eefcd92f0a48a08919d51b"
+  integrity sha1-YQRg8HJaz2ez7vzZLwpIoIkZ1Rs=
+  dependencies:
+    "@types/mongodb" "^3.5.27"
+    bson "^1.1.4"
+    kareem "2.3.2"
+    mongodb "3.6.8"
+    mongoose-legacy-pluralize "1.0.2"
+    mpath "0.8.3"
+    mquery "3.2.5"
+    ms "2.1.2"
+    regexp-clone "1.0.0"
+    safe-buffer "5.2.1"
+    sift "13.5.2"
+    sliced "1.0.1"
+
+mpath@0.8.3:
+  version "0.8.3"
+  resolved "https://registry.npm.taobao.org/mpath/download/mpath-0.8.3.tgz?cache=0&sync_timestamp=1609342170967&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmpath%2Fdownload%2Fmpath-0.8.3.tgz#828ac0d187f7f42674839d74921970979abbdd8f"
+  integrity sha1-gorA0Yf39CZ0g510khlwl5q73Y8=
 
 mqemitter@^4.4.1:
   version "4.4.1"
@@ -276,10 +419,41 @@ mqtt@^4.2.8:
     ws "^7.5.0"
     xtend "^4.0.2"
 
+mquery@3.2.5:
+  version "3.2.5"
+  resolved "https://registry.npm.taobao.org/mquery/download/mquery-3.2.5.tgz#8f2305632e4bb197f68f60c0cffa21aaf4060c51"
+  integrity sha1-jyMFYy5LsZf2j2DAz/ohqvQGDFE=
+  dependencies:
+    bluebird "3.5.1"
+    debug "3.1.0"
+    regexp-clone "^1.0.0"
+    safe-buffer "5.1.2"
+    sliced "1.0.1"
+
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz?cache=0&sync_timestamp=1607433872491&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+  integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
+
 ms@2.1.2:
   version "2.1.2"
   resolved "http://mirrors.cloud.tencent.com/npm/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
+
+multistream@^4.0.1:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/multistream/download/multistream-4.1.0.tgz?cache=0&sync_timestamp=1612410910150&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmultistream%2Fdownload%2Fmultistream-4.1.0.tgz#7bf00dfd119556fbc153cff3de4c6d477909f5a8"
+  integrity sha1-e/AN/RGVVvvBU8/z3kxtR3kJ9ag=
+  dependencies:
+    once "^1.4.0"
+    readable-stream "^3.6.0"
+
+native-url@^0.3.1:
+  version "0.3.4"
+  resolved "https://registry.npm.taobao.org/native-url/download/native-url-0.3.4.tgz#29c943172aed86c63cee62c8c04db7f5756661f8"
+  integrity sha1-KclDFyrthsY87mLIwE239XVmYfg=
+  dependencies:
+    querystring "^0.2.0"
 
 once@^1.3.0, once@^1.3.1, once@^1.4.0:
   version "1.4.0"
@@ -287,6 +461,11 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
+
+optional-require@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.nlark.com/optional-require/download/optional-require-1.0.3.tgz#275b8e9df1dc6a17ad155369c2422a440f89cb07"
+  integrity sha1-J1uOnfHcahetFVNpwkIqRA+Jywc=
 
 path-is-absolute@^1.0.0:
   version "1.0.1"
@@ -311,7 +490,21 @@ qlobber@^5.0.0, qlobber@^5.0.3:
   resolved "http://mirrors.cloud.tencent.com/npm/qlobber/-/qlobber-5.0.3.tgz#24728d6ba5382d502c7e09f6860b95a9c71615cd"
   integrity sha512-wW4GTZPePyh0RgOsM18oDyOUlXfurVRgoNyJfS+y7VWPyd0GYhQp5T2tycZFZjonH+hngxIfklGJhTP/ghidgQ==
 
-readable-stream@^2.0.0:
+querystring@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.npm.taobao.org/querystring/download/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
+  integrity sha1-QNd2FbsJ0WkCqFw+OKqLXtdhwt0=
+
+readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.0.2, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.6.0:
+  version "3.6.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
+  integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
+  dependencies:
+    inherits "^2.0.3"
+    string_decoder "^1.1.1"
+    util-deprecate "^1.0.1"
+
+readable-stream@^2.0.0, readable-stream@^2.3.5:
   version "2.3.7"
   resolved "http://mirrors.cloud.tencent.com/npm/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
   integrity sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==
@@ -324,14 +517,10 @@ readable-stream@^2.0.0:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.0.0, readable-stream@^3.0.2, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.6.0:
-  version "3.6.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
-  integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
-  dependencies:
-    inherits "^2.0.3"
-    string_decoder "^1.1.1"
-    util-deprecate "^1.0.1"
+regexp-clone@1.0.0, regexp-clone@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/regexp-clone/download/regexp-clone-1.0.0.tgz#222db967623277056260b992626354a04ce9bf63"
+  integrity sha1-Ii25Z2IydwViYLmSYmNUoEzpv2M=
 
 reinterval@^1.1.0:
   version "1.1.0"
@@ -348,15 +537,39 @@ reusify@^1.0.0, reusify@^1.0.4:
   resolved "http://mirrors.cloud.tencent.com/npm/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
 
-safe-buffer@~5.1.0, safe-buffer@~5.1.1:
+safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "http://mirrors.cloud.tencent.com/npm/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
-safe-buffer@~5.2.0:
+safe-buffer@5.2.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0:
   version "5.2.1"
   resolved "http://mirrors.cloud.tencent.com/npm/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
+
+saslprep@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.nlark.com/saslprep/download/saslprep-1.0.3.tgz#4c02f946b56cf54297e347ba1093e7acac4cf226"
+  integrity sha1-TAL5RrVs9UKX40e6EJPnrKxM8iY=
+  dependencies:
+    sparse-bitfield "^3.0.3"
+
+sift@13.5.2:
+  version "13.5.2"
+  resolved "https://registry.nlark.com/sift/download/sift-13.5.2.tgz?cache=0&sync_timestamp=1621379892209&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsift%2Fdownload%2Fsift-13.5.2.tgz#24a715e13c617b086166cd04917d204a591c9da6"
+  integrity sha1-JKcV4TxhewhhZs0EkX0gSlkcnaY=
+
+sliced@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/sliced/download/sliced-1.0.1.tgz#0b3a662b5d04c3177b1926bea82b03f837a2ef41"
+  integrity sha1-CzpmK10Ewxd7GSa+qCsD+Dei70E=
+
+sparse-bitfield@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.nlark.com/sparse-bitfield/download/sparse-bitfield-3.0.3.tgz#ff4ae6e68656056ba4b3e792ab3334d38273ca11"
+  integrity sha1-/0rm5oZWBWuks+eSqzM004JzyhE=
+  dependencies:
+    memory-pager "^1.0.2"
 
 split2@^3.1.0:
   version "3.2.2"
@@ -383,6 +596,13 @@ string_decoder@~1.1.1:
   integrity sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==
   dependencies:
     safe-buffer "~5.1.0"
+
+through2@^4.0.1:
+  version "4.0.2"
+  resolved "https://registry.npm.taobao.org/through2/download/through2-4.0.2.tgz#a7ce3ac2a7a8b0b966c80e7c49f0484c3b239764"
+  integrity sha1-p846wqeosLlmyA58SfBITDsjl2Q=
+  dependencies:
+    readable-stream "3"
 
 typedarray@^0.0.6:
   version "0.0.6"

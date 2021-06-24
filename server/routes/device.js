@@ -7,15 +7,14 @@ const User = mongoose.model('User');
 /* Get username & passwod, Return the token */
 router.get('/', function (req, res, next) {
     const token = req.get("Authorization");
-    if (token)
-    {
+    if (token) {
         const name = req.query.name;
         const online = req.query.status === 'online' ? true : false;
         const start = req.query.start;
         const end = req.query.end;
         User.findOne({ email: token }, function (err, doc) {
             const uid = doc._id;
-            let filter = {owner:uid};
+            let filter = { owner: uid };
             if (name) {
                 filter.name = name;
             }
@@ -28,32 +27,27 @@ router.get('/', function (req, res, next) {
                     if (err) return console.error(err);
                     const pageList = docs.slice(start, end);
                     const body = {
-                        code: 20000,
-                        data: {
-                            total: docs.length,
-                            items: pageList,
-                        },
+                        total: docs.length,
+                        items: pageList,
                     };
                     res.json(body);
                 })
         })
     }
-    else
-    {
+    else {
         res.status(401);
         res.json({ message: "获取token信息失败" });
     }
-    
+
 });
 
 router.post('/', function (req, res, next) {
     const token = req.get("Authorization");
     const addname = req.body.addname;
     console.log(req.body)
-    if (token) {     
+    if (token) {
         User.findOne({ email: token }, function (err, doc) {
-            if (doc)
-            {
+            if (doc) {
                 const uid = doc._id;
                 Device.count({ owner: uid }, function (err, cnt) {
                     const TEST_Device = new Device({
@@ -71,8 +65,7 @@ router.post('/', function (req, res, next) {
                     res.send();
                 })
             }
-            else
-            {
+            else {
                 res.status(401);
                 res.json({ message: "获取用户信息失败" });
             }
@@ -85,22 +78,20 @@ router.post('/', function (req, res, next) {
 
 });
 
-router.put('/', async (req, res, next)=>{
+router.put('/', async (req, res, next) => {
     const token = req.get("Authorization");
     const editdata = req.body;
     console.log(req.body)
     if (token) {
         const udoc = await User.findOne({ email: token })
-        if (udoc)
-        {
+        if (udoc) {
             const uid = udoc._id;
             const _ = await Device.updateOne({ owner: uid, id: editdata.id },
                 { name: editdata.name, online: editdata.status === 'online' ? true : false }).exec();
             res.status(201);
             res.send();
         }
-        else
-        {
+        else {
             res.status(401);
             res.json({ message: "获取用户信息失败" });
         }

@@ -47,17 +47,19 @@ class TableComponent extends Component {
       // console.log(response.data.data.total);
       if (response.status === 200)
       {
+        console.log(response.data);
         this.setState({ loading: false });
-        const list = response.data.data.items.map((item) => {
+        const list = response.data.items.map((item) => {
           return {
             id: item.id,
             name: item.name,
             data: item.data,
             date: moment(item.time).format('YYYY-MM-DD HH:mm:ss'),
+            location: item.location.length?'[' + item.location[0].coordinates.toString() + ']':'',
             status: item.online ? 'online' : 'offline'
           };
         });
-        const total = response.data.data.total;
+        const total = response.data.total;
         if (this._isMounted) {
           this.setState({ list, total });
         }
@@ -118,20 +120,6 @@ class TableComponent extends Component {
         listQuery: {
           ...state.listQuery,
           pageNumber,
-        },
-      }),
-      () => {
-        this.fetchData();
-      }
-    );
-  };
-  changePageSize = (current, pageSize) => {
-    this.setState(
-      (state) => ({
-        listQuery: {
-          ...state.listQuery,
-          pageNumber: 1,
-          pageSize,
         },
       }),
       () => {
@@ -248,7 +236,7 @@ class TableComponent extends Component {
             );
           }} />
           <Column title="最近通信时间" dataIndex="date" key="date" width={195} align="center" />
-          {/* <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" /> */}
+          <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" />
           <Column title="操作" key="action" width={195} align="center" render={(text, row) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null, row)} />
@@ -260,12 +248,9 @@ class TableComponent extends Component {
         <br />
         <Pagination
           total={this.state.total}
-          pageSizeOptions={["10", "20", "40"]}
           showTotal={(total) => `共${total}条数据`}
           onChange={this.changePage}
           current={this.state.listQuery.pageNumber}
-          onShowSizeChange={this.changePageSize}
-          showSizeChanger
           showQuickJumper
           hideOnSinglePage={true}
         />

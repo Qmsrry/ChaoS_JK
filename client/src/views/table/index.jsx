@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import {
   Table,
   Tag,
@@ -44,7 +45,15 @@ class TableComponent extends Component {
       console.log(response.data.data.items);
       console.log(response.data.data.total);
       this.setState({ loading: false });
-      const list = response.data.data.items;
+      const list = response.data.data.items.map((item)=>{
+        return {
+          id :item.id,
+          name:item.name,
+          data: item.data,
+          date: moment(item.time).format('YYYY-MM-DD HH:mm:ss'),
+          status:item.online?'online':'offline'
+        };
+      });
       const total = response.data.data.total;
       if (this._isMounted) {
         this.setState({ list, total });
@@ -193,8 +202,8 @@ class TableComponent extends Component {
         >
           <Column title="序号" dataIndex="id" key="id" width={200} align="center" sorter={(a, b) => a.id - b.id} />
           <Column title="设备名" dataIndex="name" key="name" width={200} align="center" />
-          <Column title="上传量" dataIndex="data" key="data" width={195} align="center" />
-          {/* <Column title="状态" dataIndex="status" key="status" width={195} align="center" render={(status) => {
+          <Column title="上传量" dataIndex="data" key="data" width={195} align="center" sorter={(a, b) => a.data - b.data} />
+          <Column title="状态" dataIndex="status" key="status" width={195} align="center" render={(status) => {
             let color =
               status === "online" ? "green" : status === "offline" ? "red" : "";
             return (
@@ -204,7 +213,7 @@ class TableComponent extends Component {
             );
           }} />
           <Column title="最近通信时间" dataIndex="date" key="date" width={195} align="center" />
-          <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" /> */}
+          {/* <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" /> */}
           <Column title="操作" key="action" width={195} align="center" render={(text, row) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null, row)} />

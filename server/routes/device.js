@@ -22,8 +22,9 @@ router.get('/', function (req, res, next) {
             if (req.query.status) {
                 filter.online = online;
             }
-            Device.find(filter,'id name data time location online',
-                function (err, docs) {
+            Device.find(filter, 'id name data time location online')
+                .sort({ id: 1 })
+                .exec(function (err, docs) {
                     if (err) return console.error(err);
                     const pageList = docs.slice(start, end);
                     const body = {
@@ -34,7 +35,7 @@ router.get('/', function (req, res, next) {
                         },
                     };
                     res.json(body);
-                });
+                })
         })
     }
     else

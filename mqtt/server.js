@@ -63,7 +63,7 @@ aedes.on('publish', (packet, client) => {
         User.findOne({ name: username }, function (err, user) {
             const uid = user._id;
             Device.findOne({ id: parseInt(udid), owner: uid, }, function (err, d) {
-                const payload = JSON.parse(packet.payload + '');
+                const payload = JSON.parse(packet.payload+'');
                 const did = d._id;
                 const NEW_Pkg = new Pkg({
                     sender: did,
@@ -76,6 +76,8 @@ aedes.on('publish', (packet, client) => {
                 const NEW_Pos = { type: 'Point', coordinates: payload.location };
                 d.location.push(NEW_Pos);
                 d.packages.push(NEW_Pkg._id);
+                d.warning = NEW_Pkg.warning;
+                d.data += packet.payload.length;
                 d.save();
             })
         })

@@ -14,7 +14,7 @@ router.post('/', function (req, res, next) {
       if (doc)//存在该用户名与密码
       {
         res.status(200);
-        res.json({token: doc.email})
+        res.json({ token: doc.email })
       }
       else
       {

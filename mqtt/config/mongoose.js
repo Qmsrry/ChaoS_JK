@@ -7,5 +7,6 @@ module.exports = function () {
     require('../models/auth.js');
     require('../models/user.js');
     require('../models/device.js')
+    require('../models/pkg.js')
     return db;
 }

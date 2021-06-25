@@ -109,7 +109,7 @@ const TEST_Device = new Device({
 
 const TEST_Pkg = new Pkg({
   sender: TEST_Device._id,
-  title: String,
+  topic: String,
   payload: {
     warning: false,
     location: TEST_Pos,

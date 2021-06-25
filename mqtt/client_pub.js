@@ -3,14 +3,21 @@ var mqtt = require("mqtt")
 const client = mqtt.connect('mqtt://127.0.0.1:5871', {
     username: "test",
     password: "test",
-    clientId: "test-10",}
+    clientId: "test-10",
+}
 );
 
 client.on("connect", function () {
     console.log("服务器连接成功");
     console.log(client.options.clientId);
     setInterval(() => {
-        client.publish("text", JSON.stringify({ id: 1 }), { qos: 0, retain: true }); // 发布主题text消息
-    }, 2000)
-    
+        client.publish("test",
+            JSON.stringify({
+                warning: false,
+                location: [0,1],
+                data: "tmp data",
+            })
+        ); // 发布主题text消息
+    }, 5000)
+
 });

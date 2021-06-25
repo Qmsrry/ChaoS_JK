@@ -10,6 +10,7 @@ class BarChart extends Component {
     height: PropTypes.string,
     className: PropTypes.string,
     styles: PropTypes.object,
+    chartData: PropTypes.array.isRequired,
   };
   static defaultProps = {
     width: "100%",
@@ -53,9 +54,16 @@ class BarChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions() {
+  setOptions(barData = []) {
     const animationDuration = 3000;
     this.state.chart.setOption({
+      title: {
+        textStyle:
+        {
+          color: '#333'
+        },
+        text: '发布数据最多设备',
+      },
       tooltip: {
         trigger: "axis",
         axisPointer: {
@@ -64,54 +72,38 @@ class BarChart extends Component {
         },
       },
       grid: {
-        top: 10,
-        left: "2%",
-        right: "2%",
-        bottom: "3%",
+        top: "10%",
+        left: "0%",
+        right: "0%",
+        bottom: "5%",
         containLabel: true,
       },
-      xAxis: [
+      yAxis: [
         {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: barData.map((v) => {
+            return v.name;
+          }),
           axisTick: {
             alignWithLabel: true,
           },
         },
       ],
-      yAxis: [
+      xAxis: [
         {
           type: "value",
-          axisTick: {
-            show: false,
-          },
+          axisLabel: {
+            formatter:'{value}(bytes)'
+          }
         },
       ],
       series: [
         {
-          name: "No.1",
+          name: "上传数据量",
           type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
-          data: [79, 52, 200, 334, 390, 330, 220],
+          data: barData,
           animationDuration,
-        },
-        {
-          name: "No.2",
-          type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
-          data: [80, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        },
-        {
-          name: "No.3",
-          type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
-          data: [30, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        },
+        }
       ],
     });
   }

@@ -64,14 +64,38 @@ router.get('/week', async function (req, res, next) {
                             .exec();
                         const nd = ds.length;
                         const ndata = ds.reduce((ndata, cur) => { return ndata + cur.data }, 0);
-                        chartdata['设备数'].actualData.push(nd);
-                        chartdata['数据包'].actualData.push(np);
-                        chartdata['数据量'].actualData.push(ndata);
+                        chartdata['设备数'].actualData[i]=(nd);
+                        chartdata['数据包'].actualData[i] =(np);
+                        chartdata['数据量'].actualData[i] =(ndata);
                     }))
             })().then(() => {
                 res.status(200);
                 res.json(chartdata);
             })
+        }
+        else {
+            res.status(401);
+            res.json({ message: "获取用户信息失败" });
+        }
+    }
+    else {
+        res.status(401);
+        res.json({ message: "获取token信息失败" });
+    }
+
+});
+
+router.get('/bar', async function (req, res, next) {
+    const token = req.get("Authorization");
+    if (token) {
+        const udoc = await User.findOne({ email: token }).exec();
+        if (udoc) {
+            const uid = udoc._id;
+            const ds = await Device.find({ owner: uid }, '-_id name data')
+                .sort({ data: 1 })
+                .limit(5).exec();
+            res.status(200);
+            res.json(ds);
         }
         else {
             res.status(401);
@@ -91,11 +115,10 @@ router.get('/pie', async function (req, res, next) {
         const udoc = await User.findOne({ email: token }).exec();
         if (udoc) {
             const uid = udoc._id;
-            const ds = await Device.find({ owner: uid }, '-_id name data')
-                .sort({ data: 1 })
-                .limit(5).exec();
+            const online = await Device.countDocuments({ owner: uid, online: true }).exec();
+            const offline = await Device.countDocuments({ owner: uid, online: false }).exec();
             res.status(200);
-            res.json(ds);
+            res.json([{ name: '在线', value: online }, { name: '离线', value: offline }]);
         }
         else {
             res.status(401);

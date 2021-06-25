@@ -53,8 +53,8 @@ class EditForm extends Component {
               initialValue: status,
             })(
               <Select style={{ width: 120 }}>
-                <Select.Option value="online">online</Select.Option>
-                <Select.Option value="offline">offline</Select.Option>
+                <Select.Option value="online">在线</Select.Option>
+                <Select.Option value="offline">离线</Select.Option>
               </Select>
             )}
           </Form.Item>

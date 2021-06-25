@@ -239,7 +239,7 @@ class TableComponent extends Component {
               status === "online" ? "green" : status === "offline" ? "red" : "";
             return (
               <Tag color={color} key={status}>
-                {status}
+                {status === "online" ? "在线" : status === "offline" ? "离线" : ""}
               </Tag>
             );
           }} />

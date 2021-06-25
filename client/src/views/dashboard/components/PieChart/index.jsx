@@ -55,15 +55,23 @@ class PieChart extends Component {
   }
 
   setOptions(pieData=[]) {
-    const animationDuration = 3000;
     this.state.chart.setOption({
+      title: {
+        textStyle:
+        {
+          color: '#333'
+        },
+        text: '在线情况统计',
+        x: 'center',
+        bottom: '12%'
+      },
       tooltip: {
         trigger: "item",
         formatter: "{a} <br/>{b} : {c} ({d}%)",
       },
       legend: {
         left: "center",
-        bottom: "5",
+        bottom: "2%",
         data: pieData.map((v) => {
           return v.name;
         })
@@ -71,14 +79,18 @@ class PieChart extends Component {
       calculable: true,
       series: [
         {
-          name: "传输数据量",
+          name: "数量",
           type: "pie",
-          roseType: "radius",
-          radius: [15, 95],
+          radius: '50%',
           center: ["50%", "38%"],
           data: pieData,
-          animationEasing: "cubicInOut",
-          animationDuration
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
         },
       ],
     });

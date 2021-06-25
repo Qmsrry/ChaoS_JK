@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, message } from "antd";
 import "./index.less";
-import { reqWeek, reqPie } from "@/api/dashboard";
+import { reqWeek, reqPie ,reqBar} from "@/api/dashboard";
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
@@ -9,17 +9,17 @@ import PieChart from "./components/PieChart";
 
 const lineChartDefaultData = {
   "设备数": {
-    actualData: [0, 0, 0, 0, 0, 0, 0]
+    actualData: [1, 1, 1, 1, 1, 1, 1]
   },
   "数据包": {
-    actualData: [0, 0, 0, 0, 0, 0, 0]
+    actualData: [1, 1, 1, 1, 1, 1, 1]
   },
   "数据量": {
-    actualData: [0, 0, 0, 0, 0, 0, 0]
+    actualData: [1, 1, 1, 1, 1, 1, 1]
   }
 };
 
-const pieChartDefaultData = [
+const barChartDefaultData = [
   {
     name: 'test0',
     value: 10,
@@ -42,6 +42,16 @@ const pieChartDefaultData = [
   },
 ]
 
+const pieChartDefaultData = [
+  {
+    name: '离线',
+    value: 0,
+  },
+  {
+    name: '在线',
+    value: 0,
+  },
+]
 const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState(
     lineChartDefaultData
@@ -62,6 +72,23 @@ const Dashboard = () => {
   }, [])
   const handleSetlineChartType = (type) => setlineChartType(type);
 
+  const [barChartData, setBarChartData] = useState(
+    barChartDefaultData
+  );
+  useEffect(() => {
+    reqBar().then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        setBarChartData(response.data.map((cur) => {
+          return { name: cur.name, value: cur.data };
+        }));
+      }
+      else {
+        message.warning("获取前五名设备出错!")
+      }
+    });
+  }, [])
+
   const [pieChartData, setPieChartData] = useState(
     pieChartDefaultData
   );
@@ -69,15 +96,14 @@ const Dashboard = () => {
     reqPie().then((response) => {
       if (response.status === 200) {
         console.log(response.data);
-        setPieChartData(response.data.map((cur) => {
-          return { name: cur.name, value: cur.data };
-        }).reverse());
+        setPieChartData(response.data);
       }
       else {
         message.warning("获取前五名设备出错!")
       }
     });
   }, [])
+  
   return (
     <div className="app-container">
 
@@ -102,7 +128,9 @@ const Dashboard = () => {
         </Col>
         <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
-            <BarChart />
+            <BarChart
+              chartData={barChartData}
+            />
           </div>
         </Col>
       </Row>

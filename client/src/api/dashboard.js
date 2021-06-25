@@ -15,10 +15,18 @@ export function reqWeek(data) {
         data
     })
 }
-//获得前五设备
+//获得在线统计
 export function reqPie(data) {
     return request({
         url: '/stats/pie',
+        method: 'get',
+        data
+    })
+}
+//获得前五设备
+export function reqBar(data) {
+    return request({
+        url: '/stats/bar',
         method: 'get',
         data
     })

@@ -1,6 +1,22 @@
-import React from "react";
-import { Row, Col, Icon } from "antd";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import {
+  Row,
+  Col,
+  Icon,
+  Table,
+  Tag,
+  Form,
+  Button,
+  Input,
+  Collapse,
+  Pagination,
+  Divider,
+  message,
+  Select
+} from "antd";
 import CountUp from "react-countup";
+import { reqnStats } from "@/api/dashboard";
 import "./index.less";
 
 const chartList = [
@@ -26,6 +42,18 @@ const chartList = [
 
 const PanelGroup = (props) => {
   const { handleSetLineChartData } = props;
+  const [nStats, setnStats] = useState([0,0,0]);
+  useEffect(() => {
+    reqnStats().then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        setnStats(response.data);
+      }
+      else {
+        message.warning("获取统计数出错!")
+      }
+    });
+  })
   return (
     <div className="panel-group-container">
       <Row gutter={40} className="panel-group">

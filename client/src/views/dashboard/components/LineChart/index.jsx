@@ -56,6 +56,8 @@ class LineChart extends Component {
   }
 
   setOptions({ actualData } = {}) {
+    const animationDuration = 1000;
+    this.state.chart.clear();
     this.state.chart.setOption({
       backgroundColor: "#fff",
       xAxis: {
@@ -110,7 +112,7 @@ class LineChart extends Component {
             },
           },
           data: actualData,
-          animationDuration: 2800,
+          animationDuration,
           animationEasing: "quadraticOut",
         },
       ],

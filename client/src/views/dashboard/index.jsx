@@ -22,23 +22,26 @@ const lineChartDefaultData = {
 const barChartDefaultData = [
   {
     name: 'test0',
-    value: 10,
+    value: 100,
   },
   {
     name: 'test1',
-    value: 1,
+    value: 100,
+
   },
   {
     name: 'test2',
-    value: 2,
+    value: 100,
+
   },
   {
     name: 'test3',
-    value: 3,
+    value: 100,
+
   },
   {
     name: 'test4',
-    value: 4,
+    value: 100,
   },
 ]
 

@@ -55,7 +55,8 @@ class BarChart extends Component {
   }
 
   setOptions(barData = []) {
-    const animationDuration = 3000;
+    const animationDuration = 1000;
+    this.state.chart.clear();
     this.state.chart.setOption({
       title: {
         textStyle:

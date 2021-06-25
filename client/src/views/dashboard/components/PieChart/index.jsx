@@ -54,7 +54,9 @@ class PieChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions(pieData=[]) {
+  setOptions(pieData = []) {
+    const animationDuration = 1000;
+    this.state.chart.clear();
     this.state.chart.setOption({
       title: {
         textStyle:
@@ -91,6 +93,7 @@ class PieChart extends Component {
               shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
           },
+          animationDuration
         },
       ],
     });

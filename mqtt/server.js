@@ -66,6 +66,7 @@ aedes.on('publish', (packet, client) => {
                 const payload = JSON.parse(packet.payload+'');
                 const did = d._id;
                 const NEW_Pkg = new Pkg({
+                    owner:uid,
                     sender: did,
                     topic: packet.topic,
                     payload

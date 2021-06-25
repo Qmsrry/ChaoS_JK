@@ -119,8 +119,8 @@ const TEST_Pkg = new Pkg({
 
 TEST_Pkg.markModified('payload')
 TEST_Device.location.push(TEST_Pos);
-TEST_Device.packages.push(TEST_Pkg._id);
-TEST_User.devices.push(TEST_Device._id);
+TEST_Device.packages.push(TEST_Pkg);
+TEST_User.devices.push(TEST_Device);
 
 TEST_Auth.save(function (err, res) {
   if (err) return console.error(err);

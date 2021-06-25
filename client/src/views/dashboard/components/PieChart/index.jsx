@@ -10,6 +10,7 @@ class PieChart extends Component {
     height: PropTypes.string,
     className: PropTypes.string,
     styles: PropTypes.object,
+    chartData: PropTypes.array.isRequired,
   };
   static defaultProps = {
     width: "100%",
@@ -53,7 +54,7 @@ class PieChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions() {
+  setOptions(pieData=[]) {
     const animationDuration = 3000;
     this.state.chart.setOption({
       tooltip: {
@@ -62,8 +63,10 @@ class PieChart extends Component {
       },
       legend: {
         left: "center",
-        bottom: "10",
-        data: ["No.1", "No.2", "No.3", "No.4", "No.5"],
+        bottom: "5",
+        data: pieData.map((v) => {
+          return v.name;
+        })
       },
       calculable: true,
       series: [
@@ -73,13 +76,7 @@ class PieChart extends Component {
           roseType: "radius",
           radius: [15, 95],
           center: ["50%", "38%"],
-          data: [
-            { value: 320, name: "No.1" },
-            { value: 240, name: "No.2" },
-            { value: 149, name: "No.3" },
-            { value: 100, name: "No.4" },
-            { value: 59, name: "No.5" },
-          ],
+          data: pieData,
           animationEasing: "cubicInOut",
           animationDuration
         },

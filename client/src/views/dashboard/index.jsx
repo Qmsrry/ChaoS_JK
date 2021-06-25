@@ -19,6 +19,29 @@ const lineChartDefaultData = {
   }
 };
 
+const pieChartDefaultData = [
+  {
+    name: 'test0',
+    value: 10,
+  },
+  {
+    name: 'test1',
+    value: 1,
+  },
+  {
+    name: 'test2',
+    value: 2,
+  },
+  {
+    name: 'test3',
+    value: 3,
+  },
+  {
+    name: 'test4',
+    value: 4,
+  },
+]
+
 const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState(
     lineChartDefaultData
@@ -36,9 +59,23 @@ const Dashboard = () => {
         message.warning("获取周统计出错!")
       }
     });
-  },[])
+  }, [])
   const handleSetlineChartType = (type) => setlineChartType(type);
 
+  const [pieChartData, setpieChartData] = useState(
+    pieChartDefaultData
+  );
+  useEffect(() => {
+    reqWeek().then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        setLineChartData(response.data);
+      }
+      else {
+        message.warning("获取周统计出错!")
+      }
+    });
+  }, [])
   return (
     <div className="app-container">
 
@@ -56,7 +93,9 @@ const Dashboard = () => {
       <Row gutter={32}>
         <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
-            <PieChart />
+            <PieChart
+              chartData={pieChartData}
+            />
           </div>
         </Col>
         <Col xs={24} sm={24} lg={12}>

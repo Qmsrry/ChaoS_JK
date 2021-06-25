@@ -12,9 +12,9 @@ router.get('/number', async function (req, res, next) {
         if (udoc) {
             const uid = udoc._id;
             const ds = await Device.find({ owner: uid }).exec();
-            const np = await Pkg.find({ owner: uid }).exec();
+            const np = await Pkg.countDocuments({ owner: uid }).exec();
             const nd = ds.length;
-            const ndata = ds.reduce((ndata, cur) => { ndata + cur.data }, 0);
+            const ndata = ds.reduce((ndata, cur) => { return ndata + cur.data }, 0);
             res.status(200);
             res.json([ nd, np, ndata ]);
         }

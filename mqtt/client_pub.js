@@ -3,7 +3,7 @@ var mqtt = require("mqtt")
 const client = mqtt.connect('mqtt://127.0.0.1:5871', {
     username: "test",
     password: "test",
-    clientId: "test-10",
+    clientId: "test-6",
 }
 );
 
@@ -22,6 +22,6 @@ client.on("connect", function () {
             })
         ); // 发布主题text消息
         console.log("SEND!");
-    }, 100)
+    }, 2000)
 
 });

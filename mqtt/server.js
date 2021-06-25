@@ -62,7 +62,6 @@ aedes.on('clientDisconnect', function (client) {
 
 // 有消息发布
 aedes.on('publish', (packet, client) => {
-    console.log(packet, client?client.id:'internal');
-    if(client) console.log(client.id);
+    console.log(packet.payload+'', client?client.id:'internal');
 })
 

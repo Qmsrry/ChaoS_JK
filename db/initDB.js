@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive:120});
+mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 120 });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   // we're connected!
 });
 
@@ -12,6 +12,7 @@ db.once('open', function() {
 const authSchema = new mongoose.Schema({
   username: {
     type: String,
+    unique: true,
     required: true
   },
   password: {
@@ -26,7 +27,7 @@ const authSchema = new mongoose.Schema({
 
 //用户信息
 const userSchema = new mongoose.Schema({
-  name : String,
+  name: String,
   email: {
     type: String,
     unique: true
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema({
   role: String,
   devices: [{ type: Schema.Types.ObjectId, ref: 'Device' }]
 }
-)
+);
 
 //地理坐标
 const pointSchema = new mongoose.Schema({
@@ -51,22 +52,28 @@ const pointSchema = new mongoose.Schema({
 
 //设备信息
 const deviceSchema = new mongoose.Schema({
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    id:{type:Number, require:true, unique:true},
-    name: String,
-    online: Boolean,
-    warning: Boolean,
-    time: Date,
-    data: Number,
-    packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
-    location: [pointSchema]
-});
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  id: { type: Number, require: true, unique: true },
+  name: String,
+  online: Boolean,
+  warning: Boolean,
+  time: Date,
+  data: Number,
+  packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
+  location: [pointSchema]
+}, { timestamps: { createdAt: 'createtime' } });
 
 //MQTT包信息
 const PkgSchema = new mongoose.Schema({
   sender: { type: Schema.Types.ObjectId, ref: 'Device' },
-  payload: {}
-});
+  topic : String,
+  payload: {
+    warning: Boolean,
+    location: pointSchema,
+    time: Date,
+    data: String,
+  },
+}, { timestamps: { createdAt: 'createtime' } });
 
 userSchema.methods.generateToken = function () {
   return this.email;
@@ -88,8 +95,8 @@ const TEST_Auth = new Auth({
 
 const TEST_User = new User({
   name: "test",
+  role: "admin",
   email: "csjk@zju.edu.cn",
-  role: "admin"
 })
 
 const TEST_Pos = { type: 'Point', coordinates: [0, 0] };
@@ -102,7 +109,12 @@ const TEST_Device = new Device({
 
 const TEST_Pkg = new Pkg({
   sender: TEST_Device._id,
-  payload: {},
+  title: String,
+  payload: {
+    warning: false,
+    location: TEST_Pos,
+    data: "tmp data",
+  },
 })
 
 TEST_Pkg.markModified('payload')

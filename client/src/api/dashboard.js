@@ -7,3 +7,11 @@ export function reqnStats(data) {
         data
     })
 }
+//获得一周概览
+export function reqWeek(data) {
+    return request({
+        url: '/stats/week',
+        method: 'get',
+        data
+    })
+}

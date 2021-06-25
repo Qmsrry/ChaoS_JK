@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Row, Col } from "antd";
+import React, { useEffect, useState } from "react";
+import { Row, Col, message } from "antd";
 import "./index.less";
+import { reqWeek } from "@/api/dashboard";
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
@@ -8,30 +9,43 @@ import PieChart from "./components/PieChart";
 
 const lineChartDefaultData = {
   "设备数": {
-    actualData: [1, 1, 1, 1, 1, 1, 12]
+    actualData: [0, 0, 0, 0, 0, 0, 0]
   },
   "数据包": {
-    actualData: [180, 200, 151, 106, 145, 150, 130]
+    actualData: [0, 0, 0, 0, 0, 0, 0]
   },
   "数据量": {
-    actualData: [120, 90, 100, 138, 142, 130, 130]
+    actualData: [0, 0, 0, 0, 0, 0, 0]
   }
 };
 
 const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState(
-    lineChartDefaultData["设备数"]
+    lineChartDefaultData
   );
-
-  const handleSetLineChartData = (type) => setLineChartData(lineChartDefaultData[type]);
+  const [lineChartType, setlineChartType] = useState(
+    "设备数"
+  );
+  useEffect(() => {
+    reqWeek().then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        setLineChartData(response.data);
+      }
+      else {
+        message.warning("获取周统计出错!")
+      }
+    });
+  },[])
+  const handleSetlineChartType = (type) => setlineChartType(type);
 
   return (
     <div className="app-container">
 
-      <PanelGroup handleSetLineChartData={handleSetLineChartData} />
+      <PanelGroup handleSetLineChartData={handleSetlineChartType} />
 
       <LineChart
-        chartData={lineChartData}
+        chartData={lineChartData[lineChartType]}
         styles={{
           padding: 12,
           backgroundColor: "#fff",

@@ -1,11 +1,16 @@
 var mqtt = require("mqtt")
-var client = mqtt.connect("mqtt://localhost:5871")
-
 // 连接后不断发布temp topic
-client.on("connect", (e) => {
-    console.log("success connect mqtt server");
+const client = mqtt.connect('mqtt://127.0.0.1:5871', {
+    username: "test",
+    password: "test",
+    clientId: "test-10",}
+);
+
+client.on("connect", function () {
+    console.log("服务器连接成功");
+    console.log(client.options.clientId);
     setInterval(() => {
-        client.publish("temp", "25.6")
-        console.log("send it")
-    }, 1000)
-})
+        client.publish("text", JSON.stringify({ id: 1 }), { qos: 0, retain: true }); // 发布主题text消息
+    }, 2000)
+    
+});

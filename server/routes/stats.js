@@ -16,7 +16,7 @@ router.get('/number', async function (req, res, next) {
             const nd = ds.length;
             const ndata = ds.reduce((ndata, cur) => { return ndata + cur.data }, 0);
             res.status(200);
-            res.json([ nd, np, ndata ]);
+            res.json([nd, np, ndata]);
         }
         else {
             res.status(401);
@@ -33,44 +33,50 @@ router.get('/number', async function (req, res, next) {
 router.get('/week', async function (req, res, next) {
     const token = req.get("Authorization");
     if (token) {
-        // const udoc = await Pkg
-        //     .findOne({})
-        //     .populate({
-        //         path: 'sender',
-        //         populate:{path:'owner'}
-        //     })
-        //     .exec();
+        const udoc = await User.findOne({ email: token }).exec();
         if (udoc) {
             const uid = udoc._id;
-            [...new Array(7).keys()].map(async (i) => {
-                const day = moment().add(i - 6, 'days')
-                // start today
-                const start = day.startOf('day');
-                // end today
-                const end = day.endOf('day');
-                const ds = await Device.find(
-                    {
-                        owner: uid, createtime: { '$gte': start, '$lte': end }
-                    })
-                    .exec();
-                for (const device of ds) {
-                    np += device.packages.length;
-                    ndata += device.data;
+            let chartdata = {
+                "设备数": {
+                    actualData: []
+                },
+                "数据包": {
+                    actualData: []
+                },
+                "数据量": {
+                    actualData: []
                 }
-                const ps = await Pkg.countDocuments(
-                    {
-                        owner: uid, createtime: { '$gte': start, '$lte': end }
-                    })
-                    .exec();
+            };
+            (async () => {
+                return Promise.all([...new Array(7).keys()]
+                    .map(async (i) => {
+                        const day = moment().add(i - 6, 'days')
+                        const end = day.endOf('day');
+                        const ds = await Device.find(
+                            {
+                                owner: uid, createtime: { '$lte': end }
+                            })
+                            .exec();
+                        const np = await Pkg.countDocuments(
+                            {
+                                owner: uid, createtime: { '$lte': end }
+                            })
+                            .exec();
+                        const nd = ds.length;
+                        const ndata = ds.reduce((ndata, cur) => { return ndata + cur.data }, 0);
+                        chartdata['设备数'].actualData.push(nd);
+                        chartdata['数据包'].actualData.push(np);
+                        chartdata['数据量'].actualData.push(ndata);
+                    }))
+            })().then(() => {
+                res.status(200);
+                res.json(chartdata);
             })
-            res.status(200);
-            res.json([nd, np, ndata]);
         }
         else {
             res.status(401);
             res.json({ message: "获取用户信息失败" });
         }
-        res.json(udoc);
     }
     else {
         res.status(401);

@@ -37,7 +37,13 @@ router.get('/number', async function (req, res, next) {
 router.get('/week', async function (req, res, next) {
     const token = req.get("Authorization");
     if (token) {
-        const udoc = await Device.findOne({ }).populate('owner').exec();
+        const udoc = await Pkg
+            .findOne({})
+            .populate({
+                path: 'sender',
+                populate:{path:'owner'}
+            })
+            .exec();
         // if (udoc) {
         //     const uid = udoc._id;
         //     [...new Array(7).keys()].map(async (i) => {

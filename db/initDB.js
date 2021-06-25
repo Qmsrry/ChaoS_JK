@@ -65,11 +65,12 @@ const deviceSchema = new mongoose.Schema({
 
 //MQTT包信息
 const PkgSchema = new mongoose.Schema({
-  sender: { type: Schema.Types.ObjectId, ref: 'Device' },
-  topic : String,
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  sender: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' },
+  topic: String,
   payload: {
     warning: Boolean,
-    location: pointSchema,
+    location: [Number],
     time: Date,
     data: String,
   },
@@ -108,6 +109,7 @@ const TEST_Device = new Device({
 })
 
 const TEST_Pkg = new Pkg({
+  owner: TEST_User._id,
   sender: TEST_Device._id,
   topic: String,
   payload: {

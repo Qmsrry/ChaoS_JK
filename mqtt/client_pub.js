@@ -14,10 +14,14 @@ client.on("connect", function () {
         client.publish("test",
             JSON.stringify({
                 warning: false,
-                location: [0,1],
+                location: [
+                    parseInt(Math.random() * 10 + 115, 10),
+                    parseInt(Math.random() * 10 + 25, 10)
+                ],
                 data: "tmp data",
             })
         ); // 发布主题text消息
-    }, 5000)
+        console.log("SEND!");
+    }, 100)
 
 });

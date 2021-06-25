@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, message } from "antd";
 import "./index.less";
-import { reqWeek } from "@/api/dashboard";
+import { reqWeek, reqPie } from "@/api/dashboard";
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
@@ -62,17 +62,19 @@ const Dashboard = () => {
   }, [])
   const handleSetlineChartType = (type) => setlineChartType(type);
 
-  const [pieChartData, setpieChartData] = useState(
+  const [pieChartData, setPieChartData] = useState(
     pieChartDefaultData
   );
   useEffect(() => {
-    reqWeek().then((response) => {
+    reqPie().then((response) => {
       if (response.status === 200) {
         console.log(response.data);
-        setLineChartData(response.data);
+        setPieChartData(response.data.map((cur) => {
+          return { name: cur.name, value: cur.data };
+        }).reverse());
       }
       else {
-        message.warning("获取周统计出错!")
+        message.warning("获取前五名设备出错!")
       }
     });
   }, [])

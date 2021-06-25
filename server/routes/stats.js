@@ -84,4 +84,28 @@ router.get('/week', async function (req, res, next) {
     }
 
 });
+
+router.get('/pie', async function (req, res, next) {
+    const token = req.get("Authorization");
+    if (token) {
+        const udoc = await User.findOne({ email: token }).exec();
+        if (udoc) {
+            const uid = udoc._id;
+            const ds = await Device.find({ owner: uid }, '-_id name data')
+                .sort({ data: 1 })
+                .limit(5).exec();
+            res.status(200);
+            res.json(ds);
+        }
+        else {
+            res.status(401);
+            res.json({ message: "获取用户信息失败" });
+        }
+    }
+    else {
+        res.status(401);
+        res.json({ message: "获取token信息失败" });
+    }
+
+});
 module.exports = router;

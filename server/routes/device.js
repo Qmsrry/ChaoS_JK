@@ -57,7 +57,7 @@ router.post('/', function (req, res, next) {
         User.findOne({ email: token }, function (err, doc) {
             if (doc) {
                 const uid = doc._id;
-                Device.count({ owner: uid }, function (err, cnt) {
+                Device.countDocuments({ owner: uid }, function (err, cnt) {
                     const TEST_Device = new Device({
                         id: cnt,
                         owner: uid,

@@ -53,7 +53,7 @@ const PanelGroup = (props) => {
         message.warning("获取统计数出错!")
       }
     });
-  })
+  },[])
   return (
     <div className="panel-group-container">
       <Row gutter={40} className="panel-group">
@@ -75,7 +75,7 @@ const PanelGroup = (props) => {
               </div>
               <div className="card-panel-description">
                 <p className="card-panel-text">{chart.type}</p>
-                <CountUp end={chart.num} start={0} className="card-panel-num" />
+                <CountUp end={nStats[i]} start={0} className="card-panel-num" />
               </div>
             </div>
           </Col>

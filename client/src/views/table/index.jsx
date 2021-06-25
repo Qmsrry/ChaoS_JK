@@ -47,7 +47,7 @@ class TableComponent extends Component {
       // console.log(response.data.data.total);
       if (response.status === 200)
       {
-        console.log(response.data);
+        console.log(response);
         this.setState({ loading: false });
         const list = response.data.items.map((item) => {
           return {

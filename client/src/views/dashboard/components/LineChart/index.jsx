@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import echarts from "@/lib/echarts";
 import { debounce } from "@/utils";
+import moment from 'moment';
 
 class LineChart extends Component {
   static propTypes = {
@@ -54,15 +55,20 @@ class LineChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions({ expectedData, actualData } = {}) {
+  setOptions({ actualData } = {}) {
     this.state.chart.setOption({
       backgroundColor: "#fff",
       xAxis: {
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: [...new Array(7).keys()].map((i) => {
+          return moment().add(i-6, 'days').format('MM/DD')
+        }),
         boundaryGap: false,
         axisTick: {
           show: false,
         },
+        axisLabel: {
+          rotate: 30,
+        }
       },
       grid: {
         left: 10,

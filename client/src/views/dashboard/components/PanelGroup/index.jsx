@@ -7,19 +7,19 @@ const chartList = [
   {
     type: "设备数",
     icon: "tablet",
-    num: 102400,
+    num: 0,
     color: "#40c9c6",
   },
   {
     type: "数据包",
     icon: "gift",
-    num: 81212,
+    num: 0,
     color: "#36a3f7",
   },
   {
     type: "数据量",
     icon: "database",
-    num: 9280,
+    num: 0,
     color: "#f4516c",
   }
 ];

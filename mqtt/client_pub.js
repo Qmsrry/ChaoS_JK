@@ -10,15 +10,16 @@ const client = mqtt.connect('mqtt://127.0.0.1:5871', {
 );
 client.on("connect", () => {
     console.log("服务器连接成功");
-    const limit = Math.floor(Math.random() * 15) + 1;
+    // const limit = Math.floor(Math.random() * 15) + 1;
+    const limit = 20;
     console.log(client.options.clientId + '要发' + limit + '个包');
     const id = setInterval(() => {
         client.publish("test",
             JSON.stringify({
-                warning: false,
+                warning: cnt%2===0?true:false,
                 location: [
-                    parseInt(Math.random() * 10 + 115, 10),
-                    parseInt(Math.random() * 10 + 25, 10)
+                    Math.random() + 120,
+                    Math.random() + 30,
                 ],
                 data: "tmp data",
             })

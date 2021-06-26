@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import echarts from "@/lib/echarts";
-import { Row, Col, message } from "antd";
-import { reqMap } from "@/api/map";
 
 const Mymap = (props) => {
 
@@ -12,15 +10,6 @@ const Mymap = (props) => {
 
         var data = props.mapdata;
 
-        var ndata = [
-            { name: '长沙', value: 10 },
-            { name: '衢州', value: 50 },
-            { name: '廊坊', value: 100 },
-            { name: '菏泽', value: 200 },
-            { name: '合肥', value: 250 },
-            { name: '武汉', value: 300 },
-            { name: '大庆', value: 500 }
-        ];
         var geoCoordMap = {
             '长沙': [113, 28.21],
             '衢州': [118.88, 28.97],
@@ -36,27 +25,14 @@ const Mymap = (props) => {
             for (var i = 0; i < data.length; i++) {
                 var geoCoord = geoCoordMap[data[i].name];
                 if (geoCoord) {
-                    // console.log(MAPDATA);
                     res.push({
                         name: data[i].name,
                         value: geoCoord.concat(data[i].value)
                     });
-                    //获得半径
-                    // console.log(geoCoord.concat(data[i].value))
                 }
             }
             return res;
         };
-
-        reqMap().then((response) => {
-            if (response.status === 200) {
-                console.log(response.data);
-                data = ndata;
-            }
-            else {
-                message.warning("获取周统计出错!")
-            }
-        });
 
         option = {
             title: {
@@ -172,7 +148,7 @@ const Mymap = (props) => {
             },
             series: [
                 {
-                    name: 'pm2.5',
+                    name: '历史位置',
                     type: 'scatter',
                     coordinateSystem: 'bmap',
                     data: convertData(data),
@@ -194,7 +170,7 @@ const Mymap = (props) => {
                     }
                 },
                 {
-                    name: 'Top 5',
+                    name: '现处位置',
                     type: 'effectScatter',
                     coordinateSystem: 'bmap',
                     data: convertData(data.sort(function (a, b) {

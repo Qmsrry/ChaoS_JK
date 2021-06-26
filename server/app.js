@@ -1,20 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require("cors");
 //获得连接函数
-var mongoose = require('./config/mongoose.js');
+const mongoose = require('./config/mongoose.js');
 //进行连接
-var db = mongoose();
+const db = mongoose();
 
-var statsRouter = require('./routes/stats');
-var usersRouter = require('./routes/user');
-var authRouter = require("./routes/auth");
-var deviceRouter = require("./routes/device");
-var mapRouter = require("./routes/map");
-var app = express();
+const statsRouter = require('./routes/stats');
+const usersRouter = require('./routes/user');
+const authRouter = require("./routes/auth");
+const deviceRouter = require("./routes/device");
+const mapRouter = require("./routes/map");
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

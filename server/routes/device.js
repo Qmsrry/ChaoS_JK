@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Device = mongoose.model('Device');
 const User = mongoose.model('User');
 

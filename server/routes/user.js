@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 /* Get token, Return user info */

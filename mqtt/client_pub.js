@@ -1,5 +1,7 @@
 var mqtt = require("mqtt")
 let cnt = 0;
+const id = process.argv[2];
+const always = process.argv[3] === 'always'?true: false;
 const client = mqtt.connect('mqtt://127.0.0.1:5871', {
     username: "test",
     password: "test",
@@ -23,10 +25,10 @@ client.on("connect", () => {
         );
         console.log('send!');
         cnt++;
-        if (cnt === limit) {
+        if ((!always)&&cnt === limit) {
             clearInterval(id);
             client.end(true);
         }
-    }, 100);
+    }, always?5000:500);
 });
 

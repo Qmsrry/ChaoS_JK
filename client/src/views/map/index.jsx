@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, message } from "antd";
+import { message, Card } from "antd";
 import "./index.less";
 import { Map, Marker, NavigationControl, InfoWindow, Polyline } from 'react-bmap'
 import { reqMap } from "@/api/map";
 const yqData = { lng: 120.13, lat: 30.27 }
 const MapDefaultData = [{ name: 'tmp', path: [yqData], warning: [false] }];
-const colorArr = ['white', 'black', 'green', 'blue', 'yellow']
+const colorArr = ['red', 'black', 'green', 'blue', 'yellow']
 const Dmap = () => {
   const [MapData, setMapData] = useState(MapDefaultData);
   useEffect(() => {
@@ -24,8 +24,8 @@ const Dmap = () => {
             warning: cur.warning
           }
         });
-        console.log(newdata[0]);
-        console.log(MapDefaultData[0]);
+        // console.log(newdata[0]);
+        console.log(MapDefaultData);
         setMapData(newdata);
       }
       else {
@@ -40,13 +40,27 @@ const Dmap = () => {
           // MapDefaultData[0].path[0]
           MapData[0].path[0]
       }
-        zoom="5"
+        zoom="10"
         style={{ height: 600, }}>
         <NavigationControl />
         {
           MapData.map((cur,index) => {
             return <Polyline path={cur.path} strokeColor={colorArr[index]}></Polyline>
           })
+        }
+        {
+          MapData.map((curd) =>
+            (curd.path).filter((curp, pindex) =>
+              (curd.warning[pindex])).map(cur =>
+                (<Marker position={cur} icon="loc_red" title='大鸡巴'/>)
+            )
+          )
+        }
+        {
+          MapData.map((curd) =>
+            (curd.path).filter((curp, pindex) =>
+              (!curd.warning[pindex])).map(cur =>
+                (<Marker position={cur} icon="loc_blue" />)))
         }
     </Map>
     </div>

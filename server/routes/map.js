@@ -13,20 +13,36 @@ router.get('/', async function (req, res, next) {
         }).exec();
         if (udoc) {
             const uid = udoc._id;
-            const ds = await Device.find({
-                owner: uid
-            }, '-_id name location warning')
-                .sort({
-                    data: -1
-                })
-                .limit(5).exec();
-            const dms = ds.map(d => {
-                return {
+            const ds = await Device
+                .find({ owner: uid }, '-_id name location warning packages')
+                .sort({ data: -1 })
+                .limit(5)
+                .exec();
+            const dms = [];
+            for (const d of ds)
+            {
+                let texts = [];
+                for (const pid of d.packages.slice(-10))
+                {
+                    const pkg = await Pkg
+                        .findById(pid)
+                        .exec();
+                    texts.push(pkg.payload.data)
+                }
+                dms.push({
                     name: d.name,
                     location: d.location,
-                    warning:d.warning,
-                }
-            })
+                    warning: d.warning,
+                    text:texts,
+                })
+            }
+            // const dms = ds.map(function(d){
+            //     return{
+            //         name: d.name,
+            //         location: d.location,
+            //         warning: d.warning,
+            //     }
+            // })
             res.status(200);
             res.json(dms);
         } else {

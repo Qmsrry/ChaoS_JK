@@ -18,10 +18,10 @@ client.on("connect", () => {
             JSON.stringify({
                 warning: cnt%2===0?true:false,
                 location: [
-                    Math.random() + 120,
-                    Math.random() + 30,
+                    Math.random() + 119.5,
+                    Math.random() + 30.5,
                 ],
-                data: "tmp data",
+                data: 'data'+ cnt+ 'of' + client.options.clientId
             })
         );
         console.log('send!');

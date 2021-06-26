@@ -69,9 +69,6 @@ service.interceptors.response.use(
     if (status === 401) {
       return Promise.reject(data.message);
     }
-    if (status === 401) {
-      return Promise.reject(data.message);
-    }
     if (status === 403) {
       Modal.confirm({
         title: "确定登出?",
@@ -88,7 +85,7 @@ service.interceptors.response.use(
         },
       });
     }
-    return Promise.reject(error);
+    return Promise.reject(data.message);
   }
 );
 

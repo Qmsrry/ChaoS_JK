@@ -8,5 +8,6 @@ module.exports = function () {
     require('../models/user.js');
     require('../models/device.js')
     require('../models/pkg.js')
+    require('../models/code.js')
     return db;
 }

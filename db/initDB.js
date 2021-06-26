@@ -76,6 +76,12 @@ const PkgSchema = new mongoose.Schema({
   },
 }, { timestamps: { createdAt: 'createtime' } });
 
+//验证码信息
+const CodeSchema = new mongoose.Schema({
+  email: String,
+  code:Number,
+});
+
 userSchema.methods.generateToken = function () {
   return this.email;
 }
@@ -87,6 +93,8 @@ const User = mongoose.model('User', userSchema);
 const Device = mongoose.model('Device', deviceSchema);
 
 const Pkg = mongoose.model('Pkg', PkgSchema);
+
+const Code = mongoose.model('Code', CodeSchema);
 
 const TEST_Auth = new Auth({
   username: "test",

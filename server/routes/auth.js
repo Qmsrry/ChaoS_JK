@@ -28,4 +28,17 @@ router.delete('/', function (req, res, next) {
   res.status(204);
   res.send();
 });
+
+router.put('/', async function (req, res, next) {
+  const { username, password, email, code } = req.body;
+  const u = await Auth.findOne({ username }).exec();
+  const e = await Auth.findOne({ email }).exec();
+  if (u||e)
+  {
+    res.status(400);
+    res.send({message:'已有相同用户名或邮箱'});
+  }
+  res.status(201);
+  res.send();
+});
 module.exports = router;

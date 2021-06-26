@@ -1,36 +1,25 @@
-import React, { useState } from "react";
-import { Redirect, Link, withRouter} from "react-router-dom";
+import React, { useState,useEffect} from "react";
+import {Link} from "react-router-dom";
 import { Form, Icon, Input, Button, message, Spin } from "antd";
-import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
-import { login, getUserInfo } from "@/store/actions";
+import { reqRegister } from "../../api/login";
 import "./index.less";
 
-const Login = (props) => {
-  const { form, token, login, getUserInfo } = props;
+const Register = (props) => {
+  const { form } = props;
   const { getFieldDecorator } = form;
 
   const [loading, setLoading] = useState(false);
-  const [SignModalVisible, setSignModalVisible] = useState(false);
-  const handleLogin = (username, password) => {
+  const handleRegister = (username, password) => {
     // 登录完成后 发送请求 调用接口获取用户信息
     setLoading(true);
-    login(username, password)
+    reqRegister(username, password)
       .then((data) => {
-        message.success("登录成功");
-        handleUserInfo(data.token);
+        message.success("注册成功");
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
-        message.error(error);
-      });
-  };
-
-  const handleUserInfo = (token) => {
-    getUserInfo(token)
-      .then((data) => {})
-      .catch((error) => {
         message.error(error);
       });
   };
@@ -41,26 +30,19 @@ const Login = (props) => {
       // 检验成功
       if (!err) {
         const { username, password } = values;
-        handleLogin(username, password);
+        handleRegister(username, password);
       } else {
         console.log("检验失败!");
       }
     });
   };
-
-  const handleRegister = () => {
-    setSignModalVisible(true);
-  };
-  if (token) {
-    return <Redirect to="/dashboard" />;
-  }
   
   return (
-    <DocumentTitle title={"日你妈"}>
-      <div className="login-container">
+    <DocumentTitle title={"用户注册"}>
+      <div className="register-container">
         <Form onSubmit={handleSubmit} className="content">
           <div className="title">
-            <h2>日死你妈</h2>
+            <h2>用户注册</h2>
           </div>
           <Spin spinning={loading} tip="登录中...">
             <Form.Item>
@@ -103,10 +85,10 @@ const Login = (props) => {
               )}
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                登录
+              <Button type="primary" htmlType="submit" className="register-form-button">
+                注册
               </Button>
-              或 <Button>现在注册</Button>
+              已有账号？ <Link to="login">马上登录!</Link>
             </Form.Item>
           </Spin>
         </Form>
@@ -115,8 +97,6 @@ const Login = (props) => {
   );
 };
 
-const WrapLogin = Form.create()(Login);
+const WrapRegister = Form.create()(Register);
 
-export default connect((state) => state.user, { login, getUserInfo })(
-  WrapLogin
-);
+export default WrapRegister;

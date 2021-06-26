@@ -15,3 +15,11 @@ export function reqLogout(data) {
     data
   })
 }
+
+export function reqRegister(data) {
+  return request({
+    url: '/auth',
+    method: 'put',
+    data
+  })
+}

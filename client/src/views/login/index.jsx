@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Redirect, Link, withRouter} from "react-router-dom";
+import { Redirect, Link} from "react-router-dom";
 import { Form, Icon, Input, Button, message, Spin } from "antd";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 import { login, getUserInfo } from "@/store/actions";
-import EditForm from "./forms/editForm"
 import "./index.less";
 
 const Login = (props) => {
@@ -12,7 +11,6 @@ const Login = (props) => {
   const { getFieldDecorator } = form;
 
   const [loading, setLoading] = useState(false);
-  const [SignModalVisible, setSignModalVisible] = useState(false);
   const handleLogin = (username, password) => {
     // 登录完成后 发送请求 调用接口获取用户信息
     setLoading(true);
@@ -49,9 +47,6 @@ const Login = (props) => {
     });
   };
 
-  const handleRegister = () => {
-    setSignModalVisible(true);
-  };
   if (token) {
     return <Redirect to="/dashboard" />;
   }

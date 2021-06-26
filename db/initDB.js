@@ -52,14 +52,14 @@ const pointSchema = new mongoose.Schema({
 
 //设备信息
 const deviceSchema = new mongoose.Schema({
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   id: { type: Number, require: true, unique: true },
   name: String,
   online: Boolean,
-  warning: Boolean,
+  warning: [Boolean],
   time: Date,
   data: Number,
-  packages: [{ type: Schema.Types.ObjectId, ref: 'Pkg' }],
+  packages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pkg' }],
   location: [pointSchema]
 }, { timestamps: { createdAt: 'createtime' } });
 
@@ -120,6 +120,7 @@ const TEST_Pkg = new Pkg({
 })
 
 TEST_Pkg.markModified('payload')
+TEST_Device.warning.push(false);
 TEST_Device.location.push(TEST_Pos);
 TEST_Device.packages.push(TEST_Pkg);
 TEST_User.devices.push(TEST_Device);

@@ -16,7 +16,7 @@ const deviceSchema = new mongoose.Schema({
     id: { type: Number, require: true, unique: true },
     name: String,
     online: Boolean,
-    warning: Boolean,
+    warning: [Boolean],
     time: Date,
     data: Number,
     packages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pkg' }],

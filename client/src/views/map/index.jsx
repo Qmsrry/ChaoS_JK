@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import echarts from "@/lib/echarts";
+import { Row, Col, message } from "antd";
+import { reqMap } from "@/api/map";
 import "./index.less";
 const Map = () => {
 
@@ -18,6 +20,16 @@ const Map = () => {
       { name: '武汉', value: 273 },
       { name: '大庆', value: 279 }
     ];
+
+    var ndata = [
+      { name: '长沙', value: 10 },
+      { name: '衢州', value: 50 },
+      { name: '廊坊', value: 100 },
+      { name: '菏泽', value: 200 },
+      { name: '合肥', value: 250 },
+      { name: '武汉', value: 300 },
+      { name: '大庆', value: 500 }
+    ];
     var geoCoordMap = {
       '长沙': [113, 28.21],
       '衢州': [118.88, 28.97],
@@ -27,23 +39,33 @@ const Map = () => {
       '武汉': [114.31, 30.52],
       '大庆': [125.03, 46.58]
     };
-
+    
     var convertData = function (data) {
       var res = [];
       for (var i = 0; i < data.length; i++) {
         var geoCoord = geoCoordMap[data[i].name];
         if (geoCoord) {
-          console.log(data[i].value)
+          // console.log(data[i].value)
           res.push({
             name: data[i].name,
             value: geoCoord.concat(data[i].value)
           });
           //获得半径
-          console.log(geoCoord.concat(data[i].value))
+          // console.log(geoCoord.concat(data[i].value))
         }
       }
       return res;
     };
+
+    reqMap().then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        data = ndata;
+      }
+      else {
+        message.warning("获取周统计出错!")
+      }
+    });
 
     option = {
       title: {

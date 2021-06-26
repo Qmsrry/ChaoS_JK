@@ -20,11 +20,10 @@ router.get('/', async function (req, res, next) {
                     data: -1
                 })
                 .limit(5).exec();
-            console.log(ds[0].warning);
             const dms = ds.map(d => {
                 return {
                     name: d.name,
-                    location: d.location.slice(-10).reverse(),
+                    location: d.location,
                     warning:d.warning,
                 }
             })

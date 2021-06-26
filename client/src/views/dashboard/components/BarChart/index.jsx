@@ -94,8 +94,9 @@ class BarChart extends Component {
         {
           type: "value",
           axisLabel: {
-            formatter:'{value}(bytes)'
-          }
+            formatter: '{value}(bytes)',
+            rotate: 30,
+          },
         },
       ],
       series: [

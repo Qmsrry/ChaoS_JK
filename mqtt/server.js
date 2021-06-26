@@ -76,6 +76,7 @@ aedes.on('publish', (packet, client) => {
                 d.markModified('time');
                 const NEW_Pos = { type: 'Point', coordinates: payload.location };
                 d.location.push(NEW_Pos);
+                d.location = d.location.slice(-10);
                 d.packages.push(NEW_Pkg);
                 d.warning = NEW_Pkg.warning;
                 d.data += packet.payload.length;

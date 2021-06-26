@@ -14,6 +14,7 @@ var statsRouter = require('./routes/stats');
 var usersRouter = require('./routes/user');
 var authRouter = require("./routes/auth");
 var deviceRouter = require("./routes/device");
+var mapRouter = require("./routes/map");
 var app = express();
 
 // view engine setup
@@ -30,7 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', usersRouter);
 app.use("/auth", authRouter);
 app.use("/device", deviceRouter);
-app.use("/stats",statsRouter)
+app.use("/stats", statsRouter)
+app.use("/map", mapRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -92,11 +92,11 @@ class LineChart extends Component {
         },
       },
       legend: {
-        data: ["近一周统计"],
+        data: ["近一周新增"],
       },
       series: [
         {
-          name: "近一周统计",
+          name: "近一周新增",
           smooth: true,
           type: "line",
           itemStyle: {

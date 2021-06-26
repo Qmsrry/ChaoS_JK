@@ -63,7 +63,6 @@ router.post('/', function (req, res, next) {
                         owner: uid,
                         name: addname,
                         online: false,
-                        warning: false,
                         data: 0,
                         time: new Date(),
                     })

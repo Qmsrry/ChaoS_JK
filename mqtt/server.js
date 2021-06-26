@@ -78,7 +78,7 @@ aedes.on('publish', (packet, client) => {
                 d.location.push(NEW_Pos);
                 d.location = d.location.slice(-10);
                 d.packages.push(NEW_Pkg);
-                d.warning = NEW_Pkg.warning;
+                d.warning.push(payload.warning);
                 d.data += packet.payload.length;
                 d.save();
             })

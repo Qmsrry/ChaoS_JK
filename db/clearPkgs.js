@@ -33,8 +33,20 @@ const deviceSchema = new mongoose.Schema({
     location: [pointSchema]
 }, { timestamps: { createdAt: 'createtime' } });
 
-const Device = mongoose.model('Device', deviceSchema);
+const PkgSchema = new mongoose.Schema({
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' },
+    topic: String,
+    payload: {
+        warning: Boolean,
+        location: [Number],
+        time: Date,
+        data: String,
+    },
+}, { timestamps: { createdAt: 'createtime' } });
 
-Device.updateMany({}, { location: [], packages: [], data:0}).exec();
+const Pkg = mongoose.model('Pkg', deviceSchema);
 
-
+Pkg.deleteMany({},function (err, res) {
+    process.exit();
+})

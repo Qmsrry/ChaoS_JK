@@ -48,7 +48,7 @@ const Device = mongoose.model('Device', deviceSchema);
 
 User.findOne({ name: 'test' }, function (err, res) {
   const test_id = res._id;
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 15; i++) {
     const TEST_Pos = { type: 'Point', coordinates: [120, 30] };
     const TEST_Device = new Device({
       id: i,
@@ -63,6 +63,7 @@ User.findOne({ name: 'test' }, function (err, res) {
     TEST_Device.markModified('time')
     TEST_Device.save()
   }
+  process.exit();
 })
 
 

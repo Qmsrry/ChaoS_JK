@@ -28,7 +28,9 @@ aedes.authenticate = function (client, username, password, callback) {
 //客户端连接
 aedes.on('clientReady', (client)=>{
     console.log('Client Connected: ' + (client ? client.id : client));
-    [username, udid] = client.id.split('-');
+    const tmpArr = client.id.split('-');
+    const username = tmpArr[0];
+    const udid = tmpArr[tmpArr.length - 1];
     User.findOne({name:username}, function (err, user) {
         const uid = user._id;
         Device.updateOne(

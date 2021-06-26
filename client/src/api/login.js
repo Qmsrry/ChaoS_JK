@@ -10,8 +10,8 @@ export function reqLogin(data) {
 
 export function reqLogout(data) {
   return request({
-    url: '/logout',
-    method: 'post',
+    url: '/auth',
+    method: 'delete',
     data
   })
 }

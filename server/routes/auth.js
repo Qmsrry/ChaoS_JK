@@ -24,4 +24,8 @@ router.post('/', function (req, res, next) {
     });
 });
 
+router.delete('/', function (req, res, next) {
+  res.status(204);
+  res.send();
+});
 module.exports = router;

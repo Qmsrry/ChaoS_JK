@@ -4,7 +4,6 @@ import { Form, Icon, Input, Button, message, Spin } from "antd";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 import { login, getUserInfo } from "@/store/actions";
-import EditForm from "./forms/editForm"
 import "./index.less";
 
 const Login = (props) => {
@@ -57,11 +56,11 @@ const Login = (props) => {
   }
   
   return (
-    <DocumentTitle title={"用户登录"}>
+    <DocumentTitle title={"日你妈"}>
       <div className="login-container">
         <Form onSubmit={handleSubmit} className="content">
           <div className="title">
-            <h2>用户登录</h2>
+            <h2>日死你妈</h2>
           </div>
           <Spin spinning={loading} tip="登录中...">
             <Form.Item>
@@ -107,7 +106,7 @@ const Login = (props) => {
               <Button type="primary" htmlType="submit" className="login-form-button">
                 登录
               </Button>
-              或 <Link to="register">现在注册</Link>
+              或 <Button>现在注册</Button>
             </Form.Item>
           </Spin>
         </Form>

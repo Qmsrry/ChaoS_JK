@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getUserInfo } from "@/store/actions";
 import Layout from "@/views/layout";
 import Login from "@/views/login";
+import Register from "../views/register";
 class Router extends React.Component {
   render() {
     const { token, role, getUserInfo } = this.props;
@@ -11,6 +12,7 @@ class Router extends React.Component {
       <HashRouter>
         <Switch>
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route
             path="/"
             render={() => {

@@ -41,4 +41,16 @@ router.put('/', async function (req, res, next) {
   res.status(201);
   res.send();
 });
+
+router.put('/code', async function (req, res, next) {
+  const { email } = req.body;
+  console.log(req.body);
+  const e = await Auth.findOne({ email }).exec();
+  if (e) {
+    res.status(400);
+    res.send({ message: '已有相同邮箱' });
+  }
+  res.status(201);
+  res.send();
+});
 module.exports = router;

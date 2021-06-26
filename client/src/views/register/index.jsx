@@ -1,10 +1,9 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import { Form, Icon, Input, Button, message, Spin, Row, Col} from "antd";
 import DocumentTitle from "react-document-title";
-import { reqRegister } from "../../api/login";
+import { reqRegister ,reqCode} from "../../api/login";
 import "./index.less";
-import { number, string } from "yargs";
 
 const Register = (props) => {
   const { form } = props;
@@ -12,7 +11,6 @@ const Register = (props) => {
 
   const [loading, setLoading] = useState(false);
   const handleRegister = (values) => {
-    // 登录完成后 发送请求 调用接口获取用户信息
     setLoading(true);
     reqRegister(values)
       .then((data) => {
@@ -21,7 +19,6 @@ const Register = (props) => {
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
         message.error(error);
       });
   };
@@ -34,11 +31,33 @@ const Register = (props) => {
         console.log(values);
         handleRegister(values);
       } else {
-        console.log("检验失败!");
+        message.error("请填写完整信息");
       }
     });
   };
-  
+
+
+  const handleGetcode = (event) => {
+    event.preventDefault();
+    form.validateFields(['email'],(err, values) => {
+      console.log(values);
+      if (!err) {  
+        const { email } = values;
+        reqCode(values)
+          .then((data) => {
+            message.success("请求已发送，请查看您的邮箱")
+            setLoading(false);
+          })
+          .catch((error) => {
+            setLoading(false);
+            message.error(error);
+          });
+      } else {
+        message.error("请填写邮箱");
+      }
+    });
+  };
+
   return (
     <DocumentTitle title={"用户注册"}>
       <div className="register-container">
@@ -125,7 +144,7 @@ const Register = (props) => {
               <Row gutter={8}>
                 <Col span={12}>
                   {getFieldDecorator("code", {
-                    type:Number,
+                    type: Number,
                     rules: [
                       {
                         required: true,
@@ -148,7 +167,7 @@ const Register = (props) => {
                   )}
               </Col>
               <Col span={12}>
-                <Button>获得验证码</Button>
+                  <Button onClick={handleGetcode}>获得验证码</Button>
               </Col>
               </Row>
             </Form.Item>

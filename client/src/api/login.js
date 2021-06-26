@@ -23,3 +23,11 @@ export function reqRegister(data) {
     data
   })
 }
+
+export function reqCode(data) {
+  return request({
+    url: '/auth/code',
+    method: 'put',
+    data
+  })
+}

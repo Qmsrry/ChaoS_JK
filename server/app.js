@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
-
 //获得连接函数
 var mongoose = require('./config/mongoose.js');
 //进行连接

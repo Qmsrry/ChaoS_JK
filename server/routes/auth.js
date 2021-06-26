@@ -3,6 +3,8 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 const Auth = mongoose.model('Auth');
+
+var smtp = require('./config/smtp.js')();
 /* Get username & passwod, Return the token */
 router.post('/', function (req, res, next) {
   const{username, password} = req.body

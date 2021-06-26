@@ -4,7 +4,7 @@ import "./index.less";
 import { Map, Marker, NavigationControl, InfoWindow, Polyline } from 'react-bmap'
 import { reqMap } from "@/api/map";
 const yqData = { lng: 120.13, lat: 30.27 }
-const MapDefaultData = [{ name: 'tmp', path: [yqData], warning: [false] }];
+const MapDefaultData = [{ name: 'tmp', path: [yqData], warnings: [false],texts:['tmp']}];
 const colorArr = ['red', 'black', 'green', 'blue', 'yellow']
 const Dmap = () => {
   const [MapData, setMapData] = useState(MapDefaultData);
@@ -21,11 +21,11 @@ const Dmap = () => {
               }
             }
             ),
-            warning: cur.warning
+            warnings: cur.warning,
+            texts:cur.text
           }
         });
-        // console.log(newdata[0]);
-        console.log(MapDefaultData);
+        console.log(newdata);
         setMapData(newdata);
       }
       else {
@@ -41,7 +41,7 @@ const Dmap = () => {
           MapData[0].path[0]
       }
         zoom="10"
-        style={{ height: 600, }}>
+        style={{ height: 650, }}>
         <NavigationControl />
         {
           MapData.map((cur,index) => {
@@ -51,16 +51,18 @@ const Dmap = () => {
         {
           MapData.map((curd) =>
             (curd.path).filter((curp, pindex) =>
-              (curd.warning[pindex])).map(cur =>
-                (<Marker position={cur} icon="loc_red" title='大鸡巴'/>)
+              (curd.warnings[pindex])).map((cur, cindex) =>
+                (<Marker position={cur} icon="loc_red" title={'WARNING!'+curd.texts[cindex]}/>)
             )
           )
         }
         {
           MapData.map((curd) =>
             (curd.path).filter((curp, pindex) =>
-              (!curd.warning[pindex])).map(cur =>
-                (<Marker position={cur} icon="loc_blue" />)))
+              (!curd.warnings[pindex])).map((cur, cindex) =>
+                (<Marker position={cur} icon="loc_blue" title={curd.texts[cindex]} />)
+            )
+          )
         }
     </Map>
     </div>

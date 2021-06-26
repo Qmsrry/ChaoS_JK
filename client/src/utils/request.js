@@ -63,6 +63,33 @@ service.interceptors.response.use(
   //     return response.data
   //   }
   // },
+  (error) => {
+    console.log("err" + error); // for debug
+    const { status, data } = error.response;
+    if (status === 401) {
+      return Promise.reject(data.message);
+    }
+    if (status === 401) {
+      return Promise.reject(data.message);
+    }
+    if (status === 403) {
+      Modal.confirm({
+        title: "确定登出?",
+        content:
+          "由于长时间未操作，您已被登出，可以取消继续留在该页面，或者重新登录",
+        okText: "重新登录",
+        cancelText: "取消",
+        onOk() {
+          let token = store.getState().user.token;
+          store.dispatch(logout(token));
+        },
+        onCancel() {
+          console.log("Cancel");
+        },
+      });
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default service;

@@ -19,7 +19,6 @@ export const login = (username, password) => (dispatch) => {
         }
       })
       .catch((error) => {
-        console.log("There's an error");
         console.log(error);
         reject(error);
       });

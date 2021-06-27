@@ -3,15 +3,15 @@ let cnt = 0;
 const id = process.argv[2];
 const always = process.argv[3] === 'always'?true: false;
 const client = mqtt.connect('mqtt://127.0.0.1:5871', {
-    username: "Ambrum",
-    password: "BSdeathwing2012",
-    clientId: "Ambrum-" + process.argv[2],
+    username: "test",
+    password: "test",
+    clientId: "test-" + process.argv[2],
 }
 );
 client.on("connect", () => {
     console.log("服务器连接成功");
-    // const limit = Math.floor(Math.random() * 15) + 1;
-    const limit = 20;
+    const limit = Math.floor(Math.random() * 15) + 1;
+    // const limit = 20;
     if (!always)
     {
         console.log(client.options.clientId + '要发' + limit + '个包');

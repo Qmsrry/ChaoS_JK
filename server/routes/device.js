@@ -45,9 +45,9 @@ router.get('/', async function (req, res, next) {
                     total: ds.length,
                     items: pageList,
                 };
-                console.log(body);
+                // console.log(body);
                 res.status(200);
-                console.log('send!');
+                // console.log('send!');
                 res.json(body);
             }
             )
@@ -64,33 +64,44 @@ router.get('/', async function (req, res, next) {
 
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
     const token = req.user.email;
     const addname = req.body.addname;
     console.log(req.body)
     if (token) {
-        User.findOne({ email: token }, function (err, doc) {
-            if (doc) {
-                const uid = doc._id;
-                Device.countDocuments({ owner: uid }, function (err, cnt) {
-                    const TEST_Device = new Device({
-                        id: cnt,
-                        owner: uid,
-                        name: addname,
-                        online: false,
-                        data: 0,
-                    })
-                    TEST_Device.markModified('time')
-                    TEST_Device.save()
-                    res.status(201);
-                    res.send();
-                })
+        const doc = await User.findOne({ email: token }).exec();
+        if (doc) {
+            const uid = doc._id;
+            const ds = await Device.find({ owner: uid }).sort({ id: 1 }).exec();
+            console.log(ds);
+            let cnt = ds.length;
+            for (const index in ds)
+            {
+                if (ds[index].id != index)
+                {
+                    console.log(ds[index].id);
+                    console.log(index);
+                    cnt = index;
+                    break;
+                }
             }
-            else {
-                res.status(401);
-                res.json({ message: "获取用户信息失败" });
-            }
-        })
+            console.log(cnt);
+            const TEST_Device = new Device({
+                id: cnt,
+                owner: uid,
+                name: addname,
+                online: false,
+                data: 0,
+            })
+            TEST_Device.markModified('time')
+            TEST_Device.save()
+            res.status(201);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.json({ message: "获取用户信息失败" });
+        }
     }
     else {
         res.status(401);

@@ -70,7 +70,7 @@ service.interceptors.response.use(
       Modal.confirm({
         title: "确定登出?",
         content:
-          "由于长时间未操作，您已被登出，可以取消继续留在该页面，或者重新登录",
+          "您的Token已失效，请重新登录",
         okText: "重新登录",
         cancelText: "取消",
         onOk() {
@@ -86,7 +86,7 @@ service.interceptors.response.use(
       Modal.confirm({
         title: "确定登出?",
         content:
-          "由于长时间未操作，您已被登出，可以取消继续留在该页面，或者重新登录",
+          "您的Token已失效，请重新登录",
         okText: "重新登录",
         cancelText: "取消",
         onOk() {

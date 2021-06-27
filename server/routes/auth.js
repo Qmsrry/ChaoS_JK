@@ -3,8 +3,16 @@ const router = express.Router();
 
 const mongoose = require('mongoose');
 const Auth = mongoose.model('Auth');
-
+const Code = mongoose.model('Auth');
 const transport = require('../config/smtp.js')();
+
+const randomFns = () => { // 生成6位随机数
+  let code = ""
+  for (let i = 0; i < 6; i++) {
+    code += parseInt(Math.random() * 10)
+  }
+  return parseInt(code)
+}
 /* Get username & passwod, Return the token */
 router.post('/', function (req, res, next) {
   const{username, password} = req.body
@@ -25,25 +33,50 @@ router.post('/', function (req, res, next) {
     });
 });
 
+/* Log out*/
 router.delete('/', function (req, res, next) {
   res.status(204);
   res.send();
 });
 
-router.put('/', async function (req, res, next) {
+/* Register*/
+router.post('/', async function (req, res, next) {
   const { username, password, email, code } = req.body;
   const u = await Auth.findOne({ username }).exec();
   const e = await Auth.findOne({ email }).exec();
+  const c = await Auth.findOne({ email }).exec();
   if (u||e)
   {
     res.status(400);
     res.send({message:'已有相同用户名或邮箱'});
   }
+  if (!c) {
+    res.status(400);
+    res.send({ message: '验证码不存在' });
+  }
+  if (code != c.Code)
+  {
+    res.status(400);
+    res.send({ message: '验证码错误' });
+  }
+  const NEW_Auth = new Auth({
+    username,
+    password,
+    email,
+  });
+  const NEW_User = new User({
+    name: username,
+    email,
+    role: "admin"
+  })
+  NEW_Auth.save();
+  NEW_User.save();
   res.status(201);
   res.send();
 });
 
-router.put('/code', async function (req, res, next) {
+/*Got Code*/
+router.post('/code', async function (req, res, next) {
   const { email } = req.body;
   console.log(req.body);
   const e = await Auth.findOne({ email }).exec();
@@ -58,13 +91,19 @@ router.put('/code', async function (req, res, next) {
     html: `
      <p>你好！</p>
      <p>您正在注册ChaoS_JK账号</p>
-     <p>你的验证码是：<strong style="color: #ff4e2a;">123456</strong></p>
+     <p>您的验证码是：<strong style="color: #ff4e2a;">123456</strong></p>
      <p>***该验证码5分钟内有效***</p>` // html 内容
   },
     function (error, data) {
       if (error) console.log(error);
       transport.close(); // 如果没用，关闭连接池
-    })
+    });
+  await Code.deleteMany({ email }).exec();
+  const code = randomFns();
+  const _ = await Code.insertMany({ email, code }).exec();
+  setTimeout(async () => {    //5分钟后失效
+    await Code.deleteMany({ email })
+  }, 1000 * 60 * 5);
   res.status(201);
   res.send();
 });

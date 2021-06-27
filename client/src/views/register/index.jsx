@@ -144,7 +144,6 @@ const Register = (props) => {
               <Row gutter={8}>
                 <Col span={12}>
                   {getFieldDecorator("code", {
-                    type: Number,
                     rules: [
                       {
                         required: true,

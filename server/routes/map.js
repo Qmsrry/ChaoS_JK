@@ -18,33 +18,35 @@ router.get('/', async function (req, res, next) {
                 .sort({ data: -1 })
                 .limit(5)
                 .exec();
-            const dms = [];
-            for (const d of ds)
+            if (ds.length > 0)
             {
-                let texts = [];
-                for (const pid of d.packages.slice(-10))
-                {
-                    const pkg = await Pkg
-                        .findById(pid)
-                        .exec();
-                    texts.push(pkg.payload.data)
+                const dms = [];
+                for (const d of ds) {
+                    let texts = [];
+                    for (const pid of d.packages.slice(-10)) {
+                        const pkg = await Pkg
+                            .findById(pid)
+                            .exec();
+                        texts.push(pkg.payload.data)
+                    }
+                    dms.push({
+                        name: d.name,
+                        location: d.location,
+                        warning: d.warning,
+                        text: texts,
+                    })
                 }
-                dms.push({
-                    name: d.name,
-                    location: d.location,
-                    warning: d.warning,
-                    text:texts,
-                })
+                res.status(200);
+                res.json(dms);
             }
-            // const dms = ds.map(function(d){
-            //     return{
-            //         name: d.name,
-            //         location: d.location,
-            //         warning: d.warning,
-            //     }
-            // })
-            res.status(200);
-            res.json(dms);
+            else
+            {
+                res.status(404);
+                res.json({
+                    message: "获取用户设备失败"
+                });
+            }
+
         } else {
             res.status(401);
             res.json({

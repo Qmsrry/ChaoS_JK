@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { message, Card } from "antd";
 import "./index.less";
-import { Map, Marker, NavigationControl, InfoWindow, Polyline } from 'react-bmap'
+import { Map, Marker, NavigationControl, Polyline } from 'react-bmap'
 import { reqMap } from "@/api/map";
 const yqData = { lng: 120.13, lat: 30.27 }
-const MapDefaultData = [{ name: 'tmp', path: [yqData], warnings: [false],texts:['tmp']}];
+const MapDefaultData = [{ name: 'tmp', path: [yqData], warnings: [],texts:[]}];
 const colorArr = ['red', 'black', 'green', 'blue', 'yellow']
 const Dmap = () => {
   const [MapData, setMapData] = useState(MapDefaultData);
@@ -22,7 +22,7 @@ const Dmap = () => {
             }
             ),
             warnings: cur.warning,
-            texts:cur.text
+            texts: cur.text
           }
         });
         console.log(newdata);
@@ -31,8 +31,10 @@ const Dmap = () => {
       else {
         message.warning("获取地图数据出错!")
       }
-    });
-  }, [])
+    }).catch((err) => {
+      message.warning(err);
+    })
+  }, []);
   return (
     <div className="app-container">
       <Map
@@ -59,7 +61,7 @@ const Dmap = () => {
         {
           MapData.map((curd) =>
             (curd.path).filter((curp, pindex) =>
-              (!curd.warnings[pindex])).map((cur, cindex) =>
+              ((curd.warnings.length!==0)&&(!curd.warnings[pindex]))).map((cur, cindex) =>
                 (<Marker position={cur} icon="loc_blue" title={curd.texts[cindex]} />)
             )
           )

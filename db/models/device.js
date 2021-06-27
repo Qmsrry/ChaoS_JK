@@ -13,7 +13,7 @@ const pointSchema = new mongoose.Schema({
 
 const deviceSchema = new mongoose.Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    id: { type: Number, require: true },
+    id: { type: Number, require: true},
     name: String,
     online: Boolean,
     warning: [Boolean],

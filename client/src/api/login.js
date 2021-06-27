@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export function reqLogin(data) {
   return request({
     url: '/auth',
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -19,7 +19,7 @@ export function reqLogout(data) {
 export function reqRegister(data) {
   return request({
     url: '/auth',
-    method: 'put',
+    method: 'post',
     data
   })
 }
@@ -27,7 +27,7 @@ export function reqRegister(data) {
 export function reqCode(data) {
   return request({
     url: '/auth/code',
-    method: 'put',
+    method: 'post',
     data
   })
 }

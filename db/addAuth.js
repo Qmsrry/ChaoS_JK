@@ -1,31 +1,9 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
-mongoose.connect('mongodb://localhost:27017/iot', { useNewUrlParser: true, useUnifiedTopology: true, keepAlive:120});
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-});
-
-//验证信息
-const authSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-});
-
-const Auth = mongoose.model('Auth', authSchema);
+const db = require('./config/mongoose.js')();
+const Auth = mongoose.model('Auth');
+const Code = mongoose.model('Code');
+const User = mongoose.model('User');
+const Device = mongoose.model('Device');
 
 const TEST_Auth = new Auth({
   username: "test",

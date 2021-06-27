@@ -6,6 +6,7 @@
   "dependencies": {
     "aedes": "^0.46.0",
     "aedes-persistence-mongodb": "^8.2.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.14",
     "mqtt": "^4.2.8"
   }

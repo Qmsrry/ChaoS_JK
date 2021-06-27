@@ -11,7 +11,11 @@ const Dmap = () => {
   useEffect(() => {
     reqMap().then((response) => {
       if (response.status === 200) {
-        const newdata = response.data.map((cur) => {
+        const newdata = response.data
+          .filter((cur) => (
+            cur.location.length > 0
+          ))
+          .map((cur) => {
           return {
             name: cur.name,
             path: cur.location.map((curpos) => {
@@ -26,7 +30,7 @@ const Dmap = () => {
           }
         });
         console.log(newdata);
-        if (newdata.path)
+        if (newdata.length>0)
           setMapData(newdata);
       }
       else {

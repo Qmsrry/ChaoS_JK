@@ -28,6 +28,7 @@ router.get('/', function (req, res, next) {
                     .exec(function (err, docs) {
                         if (err) return console.error(err);
                         const pageList = docs.slice(start, end);
+                        console.log(pageList[0]);
                         const body = {
                             total: docs.length,
                             items: pageList,

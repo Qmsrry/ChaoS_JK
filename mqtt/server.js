@@ -1,12 +1,13 @@
 require('./config/mongoose.js')();
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Auth = mongoose.model('Auth');
 const Device = mongoose.model('Device');
 const User = mongoose.model('User');
 const Pkg = mongoose.model('Pkg');
 const aedes = require('aedes')();
-const port = 5871
 const server = require('net').createServer(aedes.handle)
+const moment = require('moment');
+const port = 5871
 server.listen(port, function () {
     console.log('server started and listening on port ', port)
 })
@@ -74,7 +75,8 @@ aedes.on('publish', (packet, client) => {
                     payload
                 })
                 NEW_Pkg.save();
-                d.time = NEW_Pkg.createtime;
+                d.time = moment();
+                console.log(d.time);
                 d.markModified('time');
                 const NEW_Pos = { type: 'Point', coordinates: payload.location };
                 d.location.push(NEW_Pos);

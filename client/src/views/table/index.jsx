@@ -197,6 +197,7 @@ class TableComponent extends Component {
                   onChange={this.filterStatusChange}>
                   <Select.Option value="online">在线</Select.Option>
                   <Select.Option value="offline">离线</Select.Option>
+                  <Select.Option value="">所有</Select.Option>
                 </Select>
               </Form.Item>
               <Form.Item>

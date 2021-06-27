@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const config = require('./config.js');
+const { mongodb } = require('../../.config.js');
 
 module.exports = function () {
     mongoose.set('useCreateIndex', true)
-    const db = mongoose.connect(config.mongodb, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 120 });
-    require('../models/auth.js');
-    require('../models/user.js');
-    require('../models/device.js')
-    require('../models/pkg.js')
-    require('../models/code.js')
+    const db = mongoose.connect('mongodb://' + mongodb.db + ':' + mongodb.port + '/' + mongodb.db, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 120 });
+    require('../models/auth');
+    require('../models/user');
+    require('../models/device')
+    require('../models/pkg')
+    require('../models/code')
     return db;
 }

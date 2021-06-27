@@ -9,7 +9,8 @@ const cors = require("cors");
 const mongoose = require('./config/mongoose.js');
 //进行连接
 const db = mongoose();
-const { secret } = require('./config/config')
+const { http } = require('../.config.js')
+const secret = http.secret;
 const statsRouter = require('./routes/stats');
 const usersRouter = require('./routes/user');
 const authRouter = require("./routes/auth");

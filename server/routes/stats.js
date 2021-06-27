@@ -7,15 +7,18 @@ const User = mongoose.model('User');
 const Pkg = mongoose.model('Pkg');
 router.get('/number', async function (req, res, next) {
     const token = req.user.email;
+    console.log(token);
     if (token) {
         const udoc = await User.findOne({
             email: token
         }).exec();
+        console.log(udoc.name);
         if (udoc) {
             const uid = udoc._id;
             const ds = await Device.find({
                 owner: uid
             }).exec();
+            console.log(ds);
             const np = await Pkg.countDocuments({
                 owner: uid
             }).exec();

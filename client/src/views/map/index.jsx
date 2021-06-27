@@ -26,7 +26,8 @@ const Dmap = () => {
           }
         });
         console.log(newdata);
-        setMapData(newdata);
+        if (newdata.path)
+          setMapData(newdata);
       }
       else {
         message.warning("获取地图数据出错!")

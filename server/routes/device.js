@@ -64,7 +64,6 @@ router.post('/', function (req, res, next) {
                         name: addname,
                         online: false,
                         data: 0,
-                        time: new Date(),
                     })
                     TEST_Device.markModified('time')
                     TEST_Device.save()

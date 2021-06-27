@@ -43,18 +43,17 @@ class TableComponent extends Component {
   fetchData = () => {
     this.setState({ loading: true });
     deviceList(this.state.listQuery).then((response) => {
-      // console.log(response.data.data.items);
-      // console.log(response.data.data.total);
       if (response.status === 200)
       {
         console.log(response);
         this.setState({ loading: false });
         const list = response.data.items.map((item) => {
+          console.log(item);
           return {
             id: item.id,
             name: item.name,
             data: item.data,
-            date: moment(item.time).format('YYYY-MM-DD HH:mm:ss'),
+            date: item.time?moment(item.time).format('YYYY-MM-DD HH:mm:ss'):null,
             location: item.location.length?'[' + item.location[0].coordinates.toString() + ']':'',
             status: item.online ? 'online' : 'offline'
           };
@@ -68,7 +67,7 @@ class TableComponent extends Component {
       {
         message.warning("获取设备列表出错!")  
       }
-    });
+    }).catch((err) => { console.log(err);})
   };
   addData = () => {
     this.setState({ loading: true });

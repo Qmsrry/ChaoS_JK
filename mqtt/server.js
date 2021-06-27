@@ -1,4 +1,5 @@
-require('./config/mongoose.js')();
+const _ = require('./config/mongoose.js');
+const db = _();
 const mongoose = require('mongoose');
 const Auth = mongoose.model('Auth');
 const Device = mongoose.model('Device');

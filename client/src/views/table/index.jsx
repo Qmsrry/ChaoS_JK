@@ -53,6 +53,7 @@ class TableComponent extends Component {
             id: item.id,
             name: item.name,
             data: item.data,
+            text: item.data,
             date: item.time?moment(item.time).format('YYYY-MM-DD HH:mm:ss'):null,
             location: item.location.length?'[' + item.location[0].coordinates.toString() + ']':'',
             status: item.online ? 'online' : 'offline'
@@ -245,6 +246,7 @@ class TableComponent extends Component {
           }} />
           <Column title="最近通信时间" dataIndex="date" key="date" width={195} align="center" />
           <Column title="最近通信地点" dataIndex="location" key="location" width={195} align="center" />
+          <Column title="最近通信消息" dataIndex="text" key="text" width={195} align="center" />
           <Column title="操作" key="action" width={195} align="center" render={(text, row) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null, row)} />

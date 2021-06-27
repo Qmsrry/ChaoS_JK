@@ -6,7 +6,7 @@ const Device = mongoose.model('Device');
 const User = mongoose.model('User');
 const Pkg = mongoose.model('Pkg');
 router.get('/number', async function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const udoc = await User.findOne({
             email: token
@@ -41,7 +41,7 @@ router.get('/number', async function (req, res, next) {
 });
 
 router.get('/week', async function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const udoc = await User.findOne({
             email: token
@@ -109,7 +109,7 @@ router.get('/week', async function (req, res, next) {
 });
 
 router.get('/bar', async function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const udoc = await User.findOne({
             email: token
@@ -141,7 +141,7 @@ router.get('/bar', async function (req, res, next) {
 });
 
 router.get('/pie', async function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const udoc = await User.findOne({
             email: token

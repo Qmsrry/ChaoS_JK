@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
 const mongoose = require('mongoose');
 const Device = mongoose.model('Device');
 const User = mongoose.model('User');
-
 router.get('/', function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const name = req.query.name;
         const online = req.query.status === 'online' ? true : false;
@@ -51,7 +49,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     const addname = req.body.addname;
     console.log(req.body)
     if (token) {
@@ -86,7 +84,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.put('/', async (req, res, next) => {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     const editdata = req.body;
     console.log(req.body)
     if (token) {
@@ -112,7 +110,7 @@ router.put('/', async (req, res, next) => {
 });
 
 router.delete('/', async (req, res, next) => {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     const editdata = req.body;
     console.log(req.body)
     if (token) {

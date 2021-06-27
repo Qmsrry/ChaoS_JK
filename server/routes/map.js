@@ -6,7 +6,7 @@ const Device = mongoose.model('Device');
 const User = mongoose.model('User');
 const Pkg = mongoose.model('Pkg');
 router.get('/', async function (req, res, next) {
-    const token = req.get("Authorization");
+    const token = req.user.email;
     if (token) {
         const udoc = await User.findOne({
             email: token

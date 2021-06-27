@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const exjwt = require('express-jwt');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -8,7 +9,7 @@ const cors = require("cors");
 const mongoose = require('./config/mongoose.js');
 //进行连接
 const db = mongoose();
-
+const { secret } = require('./config/config')
 const statsRouter = require('./routes/stats');
 const usersRouter = require('./routes/user');
 const authRouter = require("./routes/auth");
@@ -25,8 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use('/', indexRouter);
+app.use('/user', exjwt({ secret, algorithms: ['HS256'] }));
+app.use('/device', exjwt({ secret, algorithms: ['HS256'] }));
+app.use('/stats', exjwt({ secret, algorithms: ['HS256'] }));
+app.use('/map', exjwt({ secret, algorithms: ['HS256'] }));
 app.use('/user', usersRouter);
 app.use("/auth", authRouter);
 app.use("/device", deviceRouter);

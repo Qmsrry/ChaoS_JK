@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 /* Get token, Return user info */
 router.get('/', function (req, res, next) {
-  const token = req.get("Authorization")
+  const token = req.user.email;
   console.log(token);
   if (token)
   {

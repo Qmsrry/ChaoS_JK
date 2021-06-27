@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const mongoose = require('mongoose');
 const Auth = mongoose.model('Auth');
 const Code = mongoose.model('Code');
 const User = mongoose.model('User');
 const transport = require('../config/smtp.js')();
-
+const jwt = require('jsonwebtoken')
 const randomFns = () => { // 生成6位随机数
   let code = ""
   for (let i = 0; i < 6; i++) {
@@ -23,8 +22,18 @@ router.put('/', function (req, res, next) {
       if (err) return console.error(err);
       if (doc)//存在该用户名与密码
       {
+        const token = 'Bearer ' + jwt.sign(
+          {
+            _id: doc._id,
+            email:doc.email
+          },
+          'ChaoS_JK',
+          {
+            expiresIn: 3600 * 24 * 3
+          }
+        )
         res.status(200);
-        res.json({ token: doc.email })
+        res.json({ token })
       }
       else
       {

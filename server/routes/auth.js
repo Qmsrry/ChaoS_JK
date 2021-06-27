@@ -5,6 +5,7 @@ const Auth = mongoose.model('Auth');
 const Code = mongoose.model('Code');
 const User = mongoose.model('User');
 const transport = require('../config/smtp.js')();
+const {http} = require('../../.config.js')
 const jwt = require('jsonwebtoken')
 const randomFns = () => { // 生成6位随机数
   let code = ""
@@ -27,7 +28,7 @@ router.put('/', function (req, res, next) {
             _id: doc._id,
             email:doc.email
           },
-          'ChaoS_JK',
+          http.secret,
           {
             expiresIn: 3600 * 24 * 3
           }

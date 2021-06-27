@@ -5,6 +5,7 @@ const User = mongoose.model('User');
 
 /* Get token, Return user info */
 router.get('/', function (req, res, next) {
+  console.log(req.user);
   const token = req.user.email;
   console.log(token);
   if (token)

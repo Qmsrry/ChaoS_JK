@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const smtpTransport = require('nodemailer-smtp-transport')
-const {stmp} = require('../../.config.js');
+const {smtp} = require('../../.config.js');
 module.exports = function () {
-    const transport = nodemailer.createTransport(smtpTransport(stmp));
+    const transport = nodemailer.createTransport(smtpTransport(smtp));
     return transport;
 }

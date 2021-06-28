@@ -11,6 +11,8 @@ class PieChart extends Component {
     className: PropTypes.string,
     styles: PropTypes.object,
     chartData: PropTypes.array.isRequired,
+    // eslint-disable-next-line react/no-typos
+    loading: PropTypes.boolean,
   };
   static defaultProps = {
     width: "100%",
@@ -54,55 +56,61 @@ class PieChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions(pieData = []) {
+  setOptions(pieData = [], loading=false) {
     const animationDuration = 1000;
     this.state.chart.clear();
-    this.state.chart.setOption({
-      title: {
-        textStyle:
-        {
-          color: '#333'
-        },
-        text: '在线情况统计',
-        x: 'center',
-        bottom: '12%'
-      },
-      tooltip: {
-        trigger: "item",
-        formatter: "{a} <br/>{b} : {c} ({d}%)",
-      },
-      legend: {
-        left: "center",
-        bottom: "2%",
-        data: pieData.map((v) => {
-          return v.name;
-        })
-      },
-      calculable: true,
-      series: [
-        {
-          name: "数量",
-          type: "pie",
-          radius: '50%',
-          center: ["50%", "38%"],
-          data: pieData,
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
+    if (loading) {
+      this.state.chart.showLoading();
+    }
+    else {
+      this.state.chart.hideLoading();
+      this.state.chart.setOption({
+        title: {
+          textStyle:
+          {
+            color: '#333'
           },
-          animationDuration
+          text: '在线情况统计',
+          x: 'center',
+          bottom: '12%'
         },
-      ],
-    });
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c} ({d}%)",
+        },
+        legend: {
+          left: "center",
+          bottom: "2%",
+          data: pieData.map((v) => {
+            return v.name;
+          })
+        },
+        calculable: true,
+        series: [
+          {
+            name: "数量",
+            type: "pie",
+            radius: '50%',
+            center: ["50%", "38%"],
+            data: pieData,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            },
+            animationDuration
+          },
+        ],
+      })
+    };
   }
 
   initChart() {
     if (!this.el) return;
     this.setState({ chart: echarts.init(this.el, "macarons") }, () => {
-      this.setOptions(this.props.chartData);
+      this.setOptions(this.props.chartData, this.props.loading);
     });
   }
 

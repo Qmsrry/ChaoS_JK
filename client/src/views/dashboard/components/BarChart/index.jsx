@@ -11,6 +11,8 @@ class BarChart extends Component {
     className: PropTypes.string,
     styles: PropTypes.object,
     chartData: PropTypes.array.isRequired,
+    // eslint-disable-next-line react/no-typos
+    loading:PropTypes.boolean,
   };
   static defaultProps = {
     width: "100%",
@@ -54,66 +56,73 @@ class BarChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions(barData = []) {
+  setOptions(barData = [], loading = false) {
     const animationDuration = 1000;
     this.state.chart.clear();
-    this.state.chart.setOption({
-      title: {
-        textStyle:
-        {
-          color: '#333'
+    if (loading) {
+      this.state.chart.showLoading();
+    }
+    else {
+      this.state.chart.hideLoading();
+      this.state.chart.setOption({
+        title: {
+          textStyle:
+          {
+            color: '#333'
+          },
+          text: '发布数据最多设备',
         },
-        text: '发布数据最多设备',
-      },
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          // 坐标轴指示器，坐标轴触发有效
-          type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
-        },
-      },
-      grid: {
-        top: "10%",
-        left: "0%",
-        right: "0%",
-        bottom: "5%",
-        containLabel: true,
-      },
-      yAxis: [
-        {
-          type: "category",
-          data: barData.map((v) => {
-            return v.name;
-          }),
-          axisTick: {
-            alignWithLabel: true,
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
           },
         },
-      ],
-      xAxis: [
-        {
-          type: "value",
-          axisLabel: {
-            formatter: '{value}(bytes)',
-            rotate: 30,
-          },
+        grid: {
+          top: "10%",
+          left: "0%",
+          right: "0%",
+          bottom: "5%",
+          containLabel: true,
         },
-      ],
-      series: [
-        {
-          name: "上传数据量",
-          type: "bar",
-          data: barData,
-          animationDuration,
-        }
-      ],
-    });
+        yAxis: [
+          {
+            type: "category",
+            data: barData.map((v) => {
+              return v.name;
+            }),
+            axisTick: {
+              alignWithLabel: true,
+            },
+          },
+        ],
+        xAxis: [
+          {
+            type: "value",
+            axisLabel: {
+              formatter: '{value}(bytes)',
+              rotate: 30,
+            },
+          },
+        ],
+        series: [
+          {
+            name: "上传数据量",
+            type: "bar",
+            data: barData,
+            animationDuration,
+          }
+        ],
+      });
+    }
   }
 
   initChart() {
     if (!this.el) return;
     this.setState({ chart: echarts.init(this.el, "macarons") }, () => {
-      this.setOptions(this.props.chartData);
+      console.log(this.props.loading);
+      this.setOptions(this.props.chartData, this.props.loading);
     });
   }
 

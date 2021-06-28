@@ -9,13 +9,13 @@ import PieChart from "./components/PieChart";
 
 const lineChartDefaultData = {
   "设备数": {
-    actualData: [1, 1, 1, 1, 1, 1, 1]
+    actualData: Array(7).map(cur => 0)
   },
   "数据包": {
-    actualData: [1, 1, 1, 1, 1, 1, 1]
+    actualData: Array(7).map(cur => 0)
   },
   "数据量": {
-    actualData: [1, 1, 1, 1, 1, 1, 1]
+    actualData: Array(7).map(cur => 0)
   }
 };
 
@@ -62,10 +62,19 @@ const Dashboard = () => {
   const [lineChartType, setlineChartType] = useState(
     "设备数"
   );
+  const [lineChartLoading, setlineChartLoading] = useState(
+    true
+  );
+  const [pieChartLoading, setpieChartLoading] = useState(
+    true
+  );
+  const [barChartLoading, setbarChartLoading] = useState(
+    true
+  );
   useEffect(() => {
     reqWeek().then((response) => {
       if (response.status === 200) {
-        console.log(response.data);
+        setlineChartLoading(false);
         setLineChartData(response.data);
       }
       else {
@@ -81,7 +90,7 @@ const Dashboard = () => {
   useEffect(() => {
     reqBar().then((response) => {
       if (response.status === 200) {
-        console.log(response.data);
+        setbarChartLoading(false);
         setBarChartData(response.data.map((cur) => {
           return { name: cur.name, value: cur.data };
         }));
@@ -98,7 +107,7 @@ const Dashboard = () => {
   useEffect(() => {
     reqPie().then((response) => {
       if (response.status === 200) {
-        console.log(response.data);
+        setpieChartLoading(false);
         setPieChartData(response.data);
       }
       else {
@@ -114,6 +123,7 @@ const Dashboard = () => {
 
       <LineChart
         chartData={lineChartData[lineChartType]}
+        loading={lineChartLoading}
         styles={{
           padding: 12,
           backgroundColor: "#fff",
@@ -125,6 +135,7 @@ const Dashboard = () => {
         <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
             <PieChart
+              loading={pieChartLoading}
               chartData={pieChartData}
             />
           </div>
@@ -132,6 +143,7 @@ const Dashboard = () => {
         <Col xs={24} sm={24} lg={12}>
           <div className="chart-wrapper">
             <BarChart
+              loading={barChartLoading}
               chartData={barChartData}
             />
           </div>

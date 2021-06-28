@@ -12,6 +12,8 @@ class LineChart extends Component {
     className: PropTypes.string,
     styles: PropTypes.object,
     chartData: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/no-typos
+    loading: PropTypes.boolean,
   };
   static defaultProps = {
     width: "100%",
@@ -55,74 +57,81 @@ class LineChart extends Component {
     this.setState({ chart: null });
   }
 
-  setOptions({ actualData } = {}) {
+  setOptions({ actualData } = {}, loading = false) {
     const animationDuration = 1000;
     this.state.chart.clear();
-    this.state.chart.setOption({
-      backgroundColor: "#fff",
-      xAxis: {
-        data: [...new Array(7).keys()].map((i) => {
-          return moment().add(i-6, 'days').format('MM/DD')
-        }),
-        boundaryGap: false,
-        axisTick: {
-          show: false,
+    if (loading) {
+      console.log('Line Show Loading!')
+      this.state.chart.showLoading();
+    }
+    else {
+      this.state.chart.hideLoading()  
+      this.state.chart.setOption({
+        backgroundColor: "#fff",
+        xAxis: {
+          data: [...new Array(7).keys()].map((i) => {
+            return moment().add(i - 6, 'days').format('MM/DD')
+          }),
+          boundaryGap: false,
+          axisTick: {
+            show: false,
+          },
+          axisLabel: {
+            rotate: 30,
+          }
         },
-        axisLabel: {
-          rotate: 30,
-        }
-      },
-      grid: {
-        left: 10,
-        right: 10,
-        bottom: 10,
-        top: 30,
-        containLabel: true,
-      },
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          type: "cross",
+        grid: {
+          left: 10,
+          right: 10,
+          bottom: 10,
+          top: 30,
+          containLabel: true,
         },
-        padding: [5, 10],
-      },
-      yAxis: {
-        axisTick: {
-          show: false,
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+          },
+          padding: [5, 10],
         },
-      },
-      legend: {
-        data: ["近一周新增"],
-      },
-      series: [
-        {
-          name: "近一周新增",
-          smooth: true,
-          type: "line",
-          itemStyle: {
-            normal: {
-              color: "#3888fa",
-              lineStyle: {
+        yAxis: {
+          axisTick: {
+            show: false,
+          },
+        },
+        legend: {
+          data: ["近一周新增"],
+        },
+        series: [
+          {
+            name: "近一周新增",
+            smooth: true,
+            type: "line",
+            itemStyle: {
+              normal: {
                 color: "#3888fa",
-                width: 2,
-              },
-              areaStyle: {
-                color: "#f3f8ff",
+                lineStyle: {
+                  color: "#3888fa",
+                  width: 2,
+                },
+                areaStyle: {
+                  color: "#f3f8ff",
+                },
               },
             },
+            data: actualData,
+            animationDuration,
+            animationEasing: "quadraticOut",
           },
-          data: actualData,
-          animationDuration,
-          animationEasing: "quadraticOut",
-        },
-      ],
-    });
+        ],
+      });
+    }
   }
 
   initChart() {
     if (!this.el) return;
-    this.setState({ chart: echarts.init(this.el,"macarons") }, () => {
-      this.setOptions(this.props.chartData);
+    this.setState({ chart: echarts.init(this.el, "macarons") }, () => {
+      this.setOptions(this.props.chartData, this.props.loading);
     });
   }
 

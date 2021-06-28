@@ -4,6 +4,7 @@ const Auth = mongoose.model('Auth');
 const Code = mongoose.model('Code');
 const User = mongoose.model('User');
 const Device = mongoose.model('Device');
+const Pkg = mongoose.model('Pkg');
 
 const TEST_Auth = new Auth({
   username: "test",

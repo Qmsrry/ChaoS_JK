@@ -29,10 +29,10 @@ const TEST_Device = new Device({
 const TEST_Pkg = new Pkg({
   owner: TEST_User._id,
   sender: TEST_Device._id,
-  topic: String,
+  topic: 'topic',
   payload: {
     warning: false,
-    location: TEST_Pos,
+    location: [1,0],
     data: "tmp data",
   },
 })

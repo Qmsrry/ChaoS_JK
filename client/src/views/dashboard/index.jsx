@@ -72,6 +72,7 @@ const Dashboard = () => {
     true
   );
   useEffect(() => {
+    console.log(process.env)
     reqWeek().then((response) => {
       if (response.status === 200) {
         setlineChartLoading(false);

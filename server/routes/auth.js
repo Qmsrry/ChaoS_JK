@@ -7,6 +7,7 @@ const User = mongoose.model('User');
 const transport = require('../config/smtp.js')();
 const {http} = require('../../.config.js')
 const jwt = require('jsonwebtoken')
+const emailTest = RegExp('[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+');
 const randomFns = () => { // 生成6位随机数
   let code = ""
   for (let i = 0; i < 6; i++) {
@@ -98,6 +99,11 @@ router.post('/code', async function (req, res, next) {
   if (e) {
     res.status(400);
     res.send({ message: '已有相同邮箱' });
+  }
+  if (!emailTest.test(email))
+  {
+    res.status(400);
+    res.send({ message: '邮箱格式错误!' });
   }
   const code = randomFns();
   transport.sendMail({

@@ -12,8 +12,6 @@ class LineChart extends Component {
     className: PropTypes.string,
     styles: PropTypes.object,
     chartData: PropTypes.object.isRequired,
-    // eslint-disable-next-line react/no-typos
-    loading: PropTypes.boolean,
   };
   static defaultProps = {
     width: "100%",

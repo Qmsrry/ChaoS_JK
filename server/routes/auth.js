@@ -11,7 +11,7 @@ const emailTest = RegExp('[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+');
 const randomFns = () => { // 生成6位随机数
   let code = ""
   for (let i = 0; i < 6; i++) {
-    code += parseInt(Math.random() * 10)
+    code += parseInt(Math.random() * 10 + 1)
   }
   return parseInt(code)
 }
@@ -106,6 +106,7 @@ router.post('/code', async function (req, res, next) {
     res.send({ message: '邮箱格式错误!' });
   }
   const code = randomFns();
+  console.log(code);
   transport.sendMail({
     from: 'csjk@zju.edu.cn', // 发件邮箱
     to: email, // 收件列表

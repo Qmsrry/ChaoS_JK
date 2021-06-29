@@ -11,7 +11,7 @@ const emailTest = RegExp('[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+');
 const randomFns = () => { // 生成6位随机数
   let code = ""
   for (let i = 0; i < 6; i++) {
-    code += parseInt(Math.random() * 10 + 1)
+    code += parseInt(Math.random() * 9 + 1, 10);
   }
   return parseInt(code)
 }

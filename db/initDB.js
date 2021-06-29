@@ -18,45 +18,33 @@ const TEST_User = new User({
   email: "csjk@zju.edu.cn",
 })
 
-const TEST_Pos = { type: 'Point', coordinates: [0, 0] };
-
-const TEST_Device = new Device({
-  owner: TEST_User._id,
-  name: "robot",
-  online: true,
-})
-
-const TEST_Pkg = new Pkg({
-  owner: TEST_User._id,
-  sender: TEST_Device._id,
-  topic: 'topic',
-  payload: {
-    warning: false,
-    location: [1,0],
-    data: "tmp data",
-  },
-})
-
-TEST_Pkg.markModified('payload')
-TEST_Device.warning.push(false);
-TEST_Device.location.push(TEST_Pos);
-TEST_Device.packages.push(TEST_Pkg);
-TEST_User.devices.push(TEST_Device);
-
 TEST_Auth.save(function (err, res) {
-  if (err) return console.error(err);
-  console.log(res);
-});
-TEST_Device.save(function (err, res) {
   if (err) return console.error(err);
   console.log(res);
 });
 TEST_User.save(function (err, res) {
   if (err) return console.error(err);
   console.log(res);
-});
-TEST_Pkg.save(function (err, res) {
-  if (err) return console.error(err);
-  console.log(res);
+  User.findOne({ name: 'test' }, function (err, res) {
+    const test_id = res._id;
+    for (var i = 0; i < 15; i++) {
+      const TEST_Pos = { type: 'Point', coordinates: [120, 30] };
+      const TEST_Device = new Device({
+        id: i,
+        owner: test_id,
+        name: "test" + i,
+        online: true,
+        data: 0,
+        time: new Date(),
+      });
+      TEST_Device.location.push(TEST_Pos);
+      TEST_Device.warning.push(false);
+      TEST_Device.markModified('time')
+      TEST_Device.save(function (err, _) {
+        if (err) return console.error(err);
+      })
+    }
+    console.log("保存完毕，请退出！");
+  });
 });
 

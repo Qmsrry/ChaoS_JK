@@ -25,7 +25,6 @@ db.once('open', function(){
       // console.log("gonna save!");
       TEST_Device.save(function (err,_) {
         if (err) return console.error(err);
-        process.exit();
       })
       // console.log("save!");
     }

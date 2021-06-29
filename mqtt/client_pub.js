@@ -1,10 +1,12 @@
 var mqtt = require("mqtt")
+const port = require('../.config.js').mqtt.port
 let cnt = 0;
 const username = process.argv[2];
 const password = process.argv[3];
 const id = process.argv[4];
-const always = process.argv[5] === 'always'?true: false;
-const client = mqtt.connect('mqtt://127.0.0.1:5871', {
+const always = process.argv[5] === 'always' ? true : false;
+console.log(port);
+const client = mqtt.connect('mqtt://127.0.0.1:'+port, {
     username,
     password,
     clientId: username +'-'+id,

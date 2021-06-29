@@ -8,9 +8,9 @@ const Pkg = mongoose.model('Pkg');
 const aedes = require('aedes')();
 const server = require('net').createServer(aedes.handle)
 const moment = require('moment');
-const port = 5871
-server.listen(port, function () {
-    console.log('server started and listening on port ', port)
+const { mqtt } = require('../.config.js')
+server.listen(mqtt.port, function () {
+    console.log('server started and listening on port ', mqtt.port)
 })
 //信息验证
 aedes.authenticate = function (client, username, password, callback) {
